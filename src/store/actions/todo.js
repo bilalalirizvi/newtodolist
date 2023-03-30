@@ -26,6 +26,10 @@ export const UPDATE_PRIORITY_REQUEST = "UPDATE_PRIORITY_REQUEST";
 export const UPDATE_PRIORITY_SUCCESS = "UPDATE_PRIORITY_SUCCESS";
 export const UPDATE_PRIORITY_FAILED = "UPDATE_PRIORITY_FAILED";
 
+export const IS_COMPLETED_REQUEST = "IS_COMPLETED_REQUEST";
+export const IS_COMPLETED_SUCCESS = "IS_COMPLETED_SUCCESS";
+export const IS_COMPLETED_FAILED = "IS_COMPLETED_FAILED";
+
 export const createTodo = (payload) => {
   return {
     type: CREATE_TODO_REQUEST,
@@ -73,6 +77,14 @@ export const updatePriority = (payload) => {
 export const deleteTodo = (payload) => {
   return {
     type: DELETE_TODO_REQUEST,
+    payload: payload,
+  };
+};
+
+// Is Completed Todo
+export const isCompletedTodo = (payload) => {
+  return {
+    type: IS_COMPLETED_REQUEST,
     payload: payload,
   };
 };

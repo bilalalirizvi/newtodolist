@@ -10,6 +10,7 @@ import {
   DELETE_TODO_REQUEST,
   GET_PROJECT_REQUEST,
   GET_TODO_REQUEST,
+  IS_COMPLETED_REQUEST,
   UPDATE_PRIORITY_REQUEST,
 } from "../actions/todo";
 import { createNewUserSaga, logoutSaga, userLoginSaga } from "./authSaga";
@@ -19,6 +20,7 @@ import {
   deleteTodoSaga,
   getProjectSaga,
   getTodoSaga,
+  updateIsCompletedSaga,
   updatePrioritySaga,
 } from "./todoSaga";
 
@@ -32,4 +34,5 @@ export default function* rootSagas() {
   yield all([takeEvery(GET_PROJECT_REQUEST, getProjectSaga)]);
   yield all([takeEvery(UPDATE_PRIORITY_REQUEST, updatePrioritySaga)]);
   yield all([takeEvery(DELETE_TODO_REQUEST, deleteTodoSaga)]);
+  yield all([takeEvery(IS_COMPLETED_REQUEST, updateIsCompletedSaga)]);
 }

@@ -28,7 +28,7 @@ import { letterCase } from "../../utils";
 
 // Component Modal
 import { priorityModalOpen } from "../../store/actions/modal";
-import { deleteTodo } from "../../store/actions/todo";
+import { deleteTodo, isCompletedTodo } from "../../store/actions/todo";
 
 const TodoCard = ({ data, projectShow = false }) => {
   const { title, date, isCompleted, type, priority, details, docId } = data;
@@ -75,6 +75,11 @@ const TodoCard = ({ data, projectShow = false }) => {
     });
   };
 
+  const hanldeIsCompleted = () => {
+    console.log({ docId, isCompleted });
+    dispatch(isCompletedTodo({ docId, isCompleted }));
+  };
+
   // Get Priority Status Color
   const getColor = (key) => {
     const obj = {
@@ -98,9 +103,17 @@ const TodoCard = ({ data, projectShow = false }) => {
         {...label}
         checked={isCompleted}
         color="success"
-        onChange={() => {}}
+        onChange={hanldeIsCompleted}
       />
-      <Typography sx={{ flex: 1, fontSize: "15px" }}>{title}</Typography>
+      <Typography
+        sx={{
+          flex: 1,
+          fontSize: "15px",
+          textDecoration: isCompleted && "line-through",
+        }}
+      >
+        {title}
+      </Typography>
       <Stack flexDirection={"row"} alignItems="center" sx={{ gap: "10px" }}>
         {projectShow && (
           <Typography sx={{ fontSize: "11px" }}>{letterCase(type)}</Typography>

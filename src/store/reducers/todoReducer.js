@@ -16,6 +16,9 @@ import {
   UPDATE_PRIORITY_SUCCESS,
   UPDATE_PRIORITY_FAILED,
   GET_TODO_REQUEST,
+  IS_COMPLETED_REQUEST,
+  IS_COMPLETED_SUCCESS,
+  IS_COMPLETED_FAILED,
 } from "../actions/todo";
 
 const initialState = {
@@ -26,6 +29,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
+  console.log("payload:", payload);
   switch (type) {
     // Create Todo
     case CREATE_TODO_REQUEST: {
@@ -135,6 +139,30 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    }
+    // Update Priority
+    case IS_COMPLETED_REQUEST: {
+      const index = state?.todos.findIndex((v) => v.docId === payload.docId);
+      const temp = [...state.todos];
+      temp[index].isCompleted = !temp[index].isCompleted;
+      return {
+        ...state,
+        todos: temp,
+      };
+    }
+    case IS_COMPLETED_SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case IS_COMPLETED_FAILED: {
+      const index = state.todos.findIndex((v) => v.docId === payload.docId);
+      const temp = [...state.todos];
+      temp[index].isCompleted = !temp[index].isCompleted;
+      return {
+        ...state,
+        todos: temp,
       };
     }
     default:

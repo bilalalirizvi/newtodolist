@@ -22,6 +22,7 @@ import {
   GET_TODO_FAILED,
   GET_TODO_REQUEST,
   GET_TODO_SUCCESS,
+  IS_COMPLETED_FAILED,
   UPDATE_PRIORITY_FAILED,
   UPDATE_PRIORITY_SUCCESS,
 } from "../actions/todo";
@@ -148,6 +149,27 @@ export function* updatePrioritySaga({ payload }) {
     swal("", `${message}`, "error");
     yield put({
       type: UPDATE_PRIORITY_FAILED,
+    });
+  }
+}
+
+// Update Priority
+export function* updateIsCompletedSaga({ payload }) {
+  console.log("payload saga:", payload);
+  try {
+    const ref = doc(db, "todos", payload.docId);
+    yield call(updateDoc, ref, {
+      isCompleted: !payload.isCompleted,
+      updatedBy: updatedBy,
+    });
+    yield put({
+      type: GET_TODO_REQUEST,
+    });
+    swal("", "Updated successfully", "success");
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+    yield put({
+      type: IS_COMPLETED_FAILED,
     });
   }
 }
