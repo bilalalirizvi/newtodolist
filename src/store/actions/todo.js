@@ -1,0 +1,78 @@
+export const CREATE_TODO_REQUEST = "CREATE_TODO_REQUEST";
+export const CREATE_TODO_SUCCESS = "CREATE_TODO_SUCCESS";
+export const CREATE_TODO_FAILED = "CREATE_TODO_FAILED";
+
+export const GET_TODO_REQUEST = "GET_TODO_REQUEST";
+export const GET_TODO_SUCCESS = "GET_TODO_SUCCESS";
+export const GET_TODO_FAILED = "GET_TODO_FAILED";
+
+export const DELETE_TODO_REQUEST = "DELETE_TODO_REQUEST";
+export const DELETE_TODO_SUCCESS = "DELETE_TODO_SUCCESS";
+export const DELETE_TODO_FAILED = "DELETE_TODO_FAILED";
+
+export const CREATE_PROJECT_REQUEST = "CREATE_PROJECT_REQUEST";
+export const CREATE_PROJECT_SUCCESS = "CREATE_PROJECT_SUCCESS";
+export const CREATE_PROJECT_FAILED = "CREATE_PROJECT_FAILED";
+
+export const GET_PROJECT_REQUEST = "GET_PROJECT_REQUEST";
+export const GET_PROJECT_SUCCESS = "GET_PROJECT_SUCCESS";
+export const GET_PROJECT_FAILED = "GET_PROJECT_FAILED";
+
+export const CREATE_NOTE_REQUEST = "CREATE_NOTE_REQUEST";
+export const CREATE_NOTE_SUCCESS = "CREATE_NOTE_SUCCESS";
+export const CREATE_NOTE_FAILED = "CREATE_NOTE_FAILED";
+
+export const UPDATE_PRIORITY_REQUEST = "UPDATE_PRIORITY_REQUEST";
+export const UPDATE_PRIORITY_SUCCESS = "UPDATE_PRIORITY_SUCCESS";
+export const UPDATE_PRIORITY_FAILED = "UPDATE_PRIORITY_FAILED";
+
+export const createTodo = (payload) => {
+  return {
+    type: CREATE_TODO_REQUEST,
+    payload: payload,
+  };
+};
+
+export const createProject = (payload) => {
+  return {
+    type: CREATE_PROJECT_REQUEST,
+    payload: payload,
+  };
+};
+
+export const createNote = (payload) => {
+  return {
+    type: CREATE_NOTE_REQUEST,
+    payload: payload,
+  };
+};
+
+// Get Todos
+export const getTodos = () => {
+  return {
+    type: GET_TODO_REQUEST,
+  };
+};
+
+// Get Projects
+export const getProjects = () => {
+  return {
+    type: GET_PROJECT_REQUEST,
+  };
+};
+
+// Update Priority Status
+export const updatePriority = (payload) => {
+  return {
+    type: UPDATE_PRIORITY_REQUEST,
+    payload: payload,
+  };
+};
+
+// Delete Todo
+export const deleteTodo = (payload) => {
+  return {
+    type: DELETE_TODO_REQUEST,
+    payload: payload,
+  };
+};

@@ -1,0 +1,27 @@
+.authContainer {
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url("../../assets//images/background.jpg");
+  /* height: 500px; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  /* padding-block: 50px; */
+}
+
+.formBox {
+  width: 350px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding-inline: 30px;
+  padding-block: 40px;
+  box-shadow: 0px 0px 5px black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

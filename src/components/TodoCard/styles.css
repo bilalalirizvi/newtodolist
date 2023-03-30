@@ -1,0 +1,29 @@
+.cardBox {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-inline: 10px;
+  border-left-style: solid;
+  border-left-width: 2px;
+}
+
+.cardBox:hover {
+  box-shadow: 3px 5px 13px -7px rgba(107, 107, 107, 0.75);
+  -webkit-box-shadow: 3px 5px 13px -7px rgba(107, 107, 107, 0.75);
+  -moz-box-shadow: 3px 5px 13px -7px rgba(107, 107, 107, 0.75);
+}
+
+.priority {
+  width: 80px;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  padding-block: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.actionIcon {
+  cursor: pointer;
+}
