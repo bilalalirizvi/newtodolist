@@ -21,14 +21,15 @@ const style = {
 };
 
 const CreateTodo = (props) => {
-  const { open, handleOpen, handleClose } = props;
+  const { handleClose } = props;
   const COLORS = useSelector((state) => state.Theme.theme);
+  const MODAL = useSelector((state) => state.Modal);
   const [active, setActive] = useState("todo");
   const handleActive = (value) => setActive(value);
 
   return (
     <Modal
-      open={open}
+      open={MODAL?.todoModal}
       onClose={handleClose}
       sx={{ background: "rgba(0,0,0,0.6)" }}
     >

@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
+import "./styles.css";
 import PropTypes from "prop-types";
 import {
   AppBar,
@@ -12,34 +13,39 @@ import {
 } from "@mui/material";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import MenuIcon from "@mui/icons-material/Menu";
+import { CreateTodo } from "../../../components/Modals";
+import { logout } from "../../../store/actions/auth";
+
+// Assets
 import logo from "../../../assets/images/logo.png";
-import "./styles.css";
+
+// Icons
+import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import TodayIcon from "@mui/icons-material/Today";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
-import { CreateTodo } from "../../../components/Modals";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { logout } from "../../../store/actions/auth";
+import { todoModalClose, todoModalOpen } from "../../../store/actions/modal";
 
 const drawerWidth = 300;
 
 function Layout(props) {
   const { window } = props;
   const { pathname } = useLocation();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const COLORS = useSelector((state) => state.Theme.theme);
-
-  // Create Modal Start
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  // Create Modal End
+  const MODAL = useSelector((state) => state.Modal);
+  console.log("MODAL:", MODAL);
 
   const dispatch = useDispatch();
+
+  // Create Modal Start
+  const handleOpen = () => dispatch(todoModalOpen(true));
+  const handleClose = () => dispatch(todoModalClose(true));
+  // Create Modal End
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -206,12 +212,8 @@ function Layout(props) {
       >
         <Toolbar />
         <Outlet />
-        <CreateTodo
-          open={open}
-          handleClose={handleClose}
-          handleOpen={handleOpen}
-        />
       </Box>
+      <CreateTodo handleClose={handleClose} />
     </Box>
   );
 }

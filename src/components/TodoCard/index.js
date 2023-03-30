@@ -160,7 +160,9 @@ const TodoCard = ({ data, projectShow = false }) => {
               horizontal: "right",
             }}
           >
-            <MenuItem onClick={handleMenuClose}>Details &nbsp; &nbsp;</MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </MenuItem>
           </Menu>
         </Box>
       </Stack>

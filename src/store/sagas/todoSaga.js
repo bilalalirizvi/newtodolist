@@ -11,7 +11,7 @@ import {
 import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
 import { db } from "../../configs/firebase";
-import { PRIORITY_MODAL_CLOSE } from "../actions/modal";
+import { PRIORITY_MODAL_CLOSE, TODO_MODAL_CLOSE } from "../actions/modal";
 import {
   CREATE_PROJECT_FAILED,
   CREATE_PROJECT_SUCCESS,
@@ -40,10 +40,13 @@ export function* createTodoSaga({ payload }) {
   try {
     const ref = collection(db, "todos");
     yield call(addDoc, ref, { ...payload, ...user });
-    swal("", "Todo added successfully", "success");
     yield put({
       type: CREATE_TODO_SUCCESS,
     });
+    yield put({
+      type: TODO_MODAL_CLOSE,
+    });
+    swal("", "Todo added successfully", "success");
   } catch ({ message }) {
     swal("", `${message}`, "error");
     yield put({
@@ -60,10 +63,13 @@ export function* createProjectSaga({ payload }) {
       title: payload.title,
       ...user,
     });
-    swal("", "Project added successfully", "success");
     yield put({
       type: CREATE_PROJECT_SUCCESS,
     });
+    yield put({
+      type: TODO_MODAL_CLOSE,
+    });
+    swal("", "Project added successfully", "success");
   } catch ({ message }) {
     swal("", `${message}`, "error");
     yield put({
