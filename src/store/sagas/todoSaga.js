@@ -154,13 +154,7 @@ export function* deleteTodoSaga({ payload }) {
     yield put({
       type: GET_TODO_REQUEST,
     });
-    // yield put({
-    //   type: PRIORITY_MODAL_CLOSE,
-    // });
   } catch ({ message }) {
     swal("", `${message}`, "error");
-    // yield put({
-    //   type: UPDATE_PRIORITY_FAILED,
-    // });
   }
 }

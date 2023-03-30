@@ -15,6 +15,7 @@ import {
   UPDATE_PRIORITY_REQUEST,
   UPDATE_PRIORITY_SUCCESS,
   UPDATE_PRIORITY_FAILED,
+  GET_TODO_REQUEST,
 } from "../actions/todo";
 
 const initialState = {
@@ -83,16 +84,25 @@ const authReducer = (state = initialState, action) => {
         loading: false,
       };
     }
-    // Get Project
+    // Get Todo
+    case GET_TODO_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case GET_TODO_SUCCESS: {
       return {
         ...state,
         todos: payload,
+        loading: false,
       };
     }
     case GET_TODO_FAILED: {
       return {
         ...state,
+        loading: false,
+        todos: [],
       };
     }
     // Get Project

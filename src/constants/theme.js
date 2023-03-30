@@ -8,7 +8,7 @@ export const light = {
   green1: "#5ECC97",
   orange: "#F3B117",
   red: "#EA3628",
-  icon: "rgb(134, 134, 134)",
+  icon: "#A9A9A9",
   gray: "gray",
 };
 
@@ -22,6 +22,6 @@ export const dark = {
   green1: "#5ECC97",
   orange: "#F3B117",
   red: "#EA3628",
-  icon: "rgb(134, 134, 134)",
+  icon: "#A9A9A9",
   gray: "gray",
 };
