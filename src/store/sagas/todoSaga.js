@@ -10,7 +10,9 @@ import {
 } from "firebase/firestore";
 import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
+import { array } from "yup";
 import { db } from "../../configs/firebase";
+import { sortDataByDate } from "../../utils";
 import { PRIORITY_MODAL_CLOSE, TODO_MODAL_CLOSE } from "../actions/modal";
 import {
   CREATE_PROJECT_FAILED,
@@ -93,7 +95,7 @@ export function* getTodoSaga() {
     });
     yield put({
       type: GET_TODO_SUCCESS,
-      payload: tempData,
+      payload: sortDataByDate(tempData),
     });
   } catch ({ message }) {
     swal("", `${message}`, "error");
@@ -117,7 +119,7 @@ export function* getProjectSaga() {
     });
     yield put({
       type: GET_PROJECT_SUCCESS,
-      payload: tempData,
+      payload: sortDataByDate(tempData),
     });
   } catch ({ message }) {
     swal("", `${message}`, "error");
