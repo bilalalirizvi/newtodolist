@@ -1,4 +1,6 @@
 import {
+  DETAILS_MODAL_CLOSE,
+  DETAILS_MODAL_OPEN,
   PRIORITY_MODAL_CLOSE,
   PRIORITY_MODAL_OPEN,
   TODO_MODAL_CLOSE,
@@ -8,7 +10,9 @@ import {
 const initialState = {
   todoModal: false,
   priorityModal: false,
+  detailsModal: false,
   selectedPriority: {},
+  selectedDetails: {},
 };
 
 const modalReducer = (state = initialState, action) => {
@@ -38,6 +42,20 @@ const modalReducer = (state = initialState, action) => {
         ...state,
         priorityModal: false,
         selectedPriority: {},
+      };
+    }
+    case DETAILS_MODAL_OPEN: {
+      return {
+        ...state,
+        detailsModal: true,
+        selectedDetails: payload,
+      };
+    }
+    case DETAILS_MODAL_CLOSE: {
+      return {
+        ...state,
+        detailsModal: false,
+        selectedDetails: {},
       };
     }
     default:

@@ -5,13 +5,16 @@ import { letterCase } from "../../../utils";
 import CloseIcon from "@mui/icons-material/Close";
 import Progress from "../../Progress";
 import { updatePriority } from "../../../store/actions/todo";
+import { priorityModalClose } from "../../../store/actions/modal";
 
-const PriorityStatus = ({ handlePriorityClose }) => {
+const PriorityStatus = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
   const MODAL = useSelector((state) => state.Modal);
 
   const dispatch = useDispatch();
+
+  const handlePriorityClose = () => dispatch(priorityModalClose());
 
   const getColor = (key) => {
     const obj = {

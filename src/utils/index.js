@@ -7,6 +7,10 @@ export const letterCase = (str) => {
     : str;
 };
 
+export const firstLetterCapital = (str) => {
+  return str !== "" && str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 export const sortDataByDate = (array) => {
   return array.sort(function (a, b) {
     return new Date(b.createdBy) - new Date(a.createdBy);

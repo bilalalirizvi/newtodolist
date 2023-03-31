@@ -27,7 +27,7 @@ import swal from "sweetalert";
 import { letterCase } from "../../utils";
 
 // Component Modal
-import { priorityModalOpen } from "../../store/actions/modal";
+import { detailsModalOpen, priorityModalOpen } from "../../store/actions/modal";
 import { deleteTodo, isCompletedTodo } from "../../store/actions/todo";
 
 const TodoCard = ({ data, projectShow = false }) => {
@@ -58,6 +58,11 @@ const TodoCard = ({ data, projectShow = false }) => {
         docId,
       })
     );
+
+  // Details
+  const handleDetailsOpen = (data) => {
+    dispatch(detailsModalOpen(data));
+  };
 
   // Delete Todo
   const handleDelete = () => {
@@ -172,7 +177,12 @@ const TodoCard = ({ data, projectShow = false }) => {
               horizontal: "right",
             }}
           >
-            <MenuItem onClick={handleMenuClose}>
+            <MenuItem
+              onClick={() => {
+                handleMenuClose();
+                handleDetailsOpen(data);
+              }}
+            >
               Details &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </MenuItem>
           </Menu>

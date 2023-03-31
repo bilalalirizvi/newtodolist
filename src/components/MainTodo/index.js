@@ -3,11 +3,7 @@ import React, { useEffect } from "react";
 import { Loader, TodoCard } from "../../components";
 import { Box } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { PriorityStatus } from "../../components/Modals";
-import {
-  priorityModalClose,
-  priorityModalOpen,
-} from "../../store/actions/modal";
+import { DetailsModal, PriorityStatus } from "../../components/Modals";
 import { getTodos } from "../../store/actions/todo";
 
 const MainTodo = ({ name, projectShow }) => {
@@ -15,12 +11,9 @@ const MainTodo = ({ name, projectShow }) => {
 
   const dispatch = useDispatch();
 
-  // Priority
-  const handlePriorityClose = () => dispatch(priorityModalClose());
-
   useEffect(() => {
     dispatch(getTodos());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -41,10 +34,10 @@ const MainTodo = ({ name, projectShow }) => {
         </Box>
       )}
       {/* Priority Modal */}
-      <PriorityStatus
-        priorityModalOpen={priorityModalOpen}
-        handlePriorityClose={handlePriorityClose}
-      />
+      <PriorityStatus />
+
+      {/* Details Modal */}
+      <DetailsModal />
     </>
   );
 };
