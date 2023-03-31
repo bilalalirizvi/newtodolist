@@ -1,8 +1,7 @@
-import React from "react";
-import "./styles.css";
+import { MainTodo } from "../../../components";
 
-const index = () => {
-  return <div>index</div>;
+const Week = () => {
+  return <MainTodo name={"week"} projectShow={true} />;
 };
 
-export default index;
+export default Week;

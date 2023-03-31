@@ -1,12 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {
-  Dashboard,
-  Layout,
-  Notes,
-  Projects,
-  Today,
-  Week,
-} from "../screens/app";
+import { Home, Layout, Notes, Projects, Today, Week } from "../screens/app";
 import { Login, Signup, ForgotPassword } from "../screens/auth";
 import AppRoutes from "./ProtectedRoute/AppRoutes";
 
@@ -21,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <Home />,
       },
       {
         path: "today",

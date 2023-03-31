@@ -18,7 +18,7 @@ const Note = () => {
     handleSubmit,
     errors,
     touched,
-    resetForm,
+    // resetForm,
   } = useFormik({
     initialValues: {
       title: "",
@@ -26,7 +26,7 @@ const Note = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log("values", values);
+      // console.log("values", values);
     },
   });
   return (

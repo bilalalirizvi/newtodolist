@@ -76,7 +76,6 @@ const TodoCard = ({ data, projectShow = false }) => {
   };
 
   const hanldeIsCompleted = () => {
-    console.log({ docId, isCompleted });
     dispatch(isCompletedTodo({ docId, isCompleted }));
   };
 

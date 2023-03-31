@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log("values", values);
+      // console.log("values", values);
     },
   });
   return (

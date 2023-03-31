@@ -155,7 +155,6 @@ export function* updatePrioritySaga({ payload }) {
 
 // Update Priority
 export function* updateIsCompletedSaga({ payload }) {
-  console.log("payload saga:", payload);
   try {
     const ref = doc(db, "todos", payload.docId);
     yield call(updateDoc, ref, {

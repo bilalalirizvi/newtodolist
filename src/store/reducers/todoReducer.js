@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   CREATE_TODO_REQUEST,
   CREATE_TODO_SUCCESS,
@@ -25,11 +26,11 @@ const initialState = {
   loading: false,
   todos: [],
   projects: [],
+  today: [],
 };
 
 const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
-  console.log("payload:", payload);
   switch (type) {
     // Create Todo
     case CREATE_TODO_REQUEST: {
@@ -96,10 +97,22 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case GET_TODO_SUCCESS: {
+      const todayTodo = payload?.filter(
+        (v) =>
+          moment(v.date).format("DD") ===
+          moment(new Date().toISOString()).format("DD")
+      );
+      var start = moment().clone().startOf("isoWeek");
+      var end = moment().clone().endOf("isoWeek");
+      const weekTodo = payload?.filter(
+        (v) => moment(v.date) > start && moment(v.date) < end
+      );
       return {
         ...state,
         todos: payload,
         loading: false,
+        today: todayTodo,
+        week: weekTodo,
       };
     }
     case GET_TODO_FAILED: {

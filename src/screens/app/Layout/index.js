@@ -22,7 +22,7 @@ import logo from "../../../assets/images/logo.png";
 // Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+import DashboardIcon from "@mui/icons-material/Home";
 import TodayIcon from "@mui/icons-material/Today";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
@@ -37,8 +37,7 @@ function Layout(props) {
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const COLORS = useSelector((state) => state.Theme.theme);
-  const MODAL = useSelector((state) => state.Modal);
-  console.log("MODAL:", MODAL);
+  const TODOS = useSelector((state) => state.Todo);
 
   const dispatch = useDispatch();
 
@@ -93,9 +92,24 @@ function Layout(props) {
         />
       </Box>
       <Box sx={{ height: "100%" }}>
-        <Link to={"/"} title={"Dashboard"} icon={<DashboardIcon />} count={0} />
-        <Link to={"today"} title={"Today"} icon={<TodayIcon />} count={0} />
-        <Link to={"week"} title={"Week"} icon={<ViewWeekIcon />} count={0} />
+        <Link
+          to={"/"}
+          title={"Home"}
+          icon={<DashboardIcon />}
+          count={TODOS?.todos?.length || 0}
+        />
+        <Link
+          to={"today"}
+          title={"Today"}
+          icon={<TodayIcon />}
+          count={TODOS?.today?.length || 0}
+        />
+        <Link
+          to={"week"}
+          title={"Week"}
+          icon={<ViewWeekIcon />}
+          count={TODOS?.week?.length || 0}
+        />
         <Link
           to={"projects"}
           title={"Projects"}
@@ -148,7 +162,7 @@ function Layout(props) {
             component="div"
             sx={{ color: COLORS.black, fontWeight: "bold" }}
           >
-            {pathname === "/" && "Dashboard"}
+            {pathname === "/" && "Home"}
             {pathname === "/today" && "Today"}
             {pathname === "/week" && "Week"}
             {pathname === "/projects" && "Projects"}

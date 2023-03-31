@@ -4,5 +4,14 @@ import TextFieldError from "./TextFieldError";
 import Progress from "./Progress";
 import FullPageLoading from "./FullPageLoading";
 import Loader from "./Loader";
+import MainTodo from "./MainTodo";
 
-export { TodoCard, Label, TextFieldError, Progress, FullPageLoading, Loader };
+export {
+  MainTodo,
+  TodoCard,
+  Label,
+  TextFieldError,
+  Progress,
+  FullPageLoading,
+  Loader,
+};
