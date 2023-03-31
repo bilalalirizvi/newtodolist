@@ -5,6 +5,7 @@ import Progress from "./Progress";
 import FullPageLoading from "./FullPageLoading";
 import Loader from "./Loader";
 import MainTodo from "./MainTodo";
+import NoteCard from "./NoteCard";
 
 export {
   MainTodo,
@@ -14,4 +15,5 @@ export {
   Progress,
   FullPageLoading,
   Loader,
+  NoteCard,
 };

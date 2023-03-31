@@ -38,6 +38,7 @@ function Layout(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
+  const NOTES = useSelector((state) => state.Note);
 
   const dispatch = useDispatch();
 
@@ -116,7 +117,12 @@ function Layout(props) {
           icon={<AccountTreeIcon />}
           count={0}
         />
-        <Link to={"notes"} title={"Notes"} icon={<NotesIcon />} count={0} />
+        <Link
+          to={"notes"}
+          title={"Notes"}
+          icon={<NotesIcon />}
+          count={NOTES?.notes?.length || 0}
+        />
       </Box>
       <Box sx={{ padding: "15px" }}>
         <Button variant="contained" className="addBtn" onClick={handleOpen}>

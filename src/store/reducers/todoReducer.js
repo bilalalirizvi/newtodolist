@@ -25,8 +25,9 @@ import {
 const initialState = {
   loading: false,
   todos: [],
-  projects: [],
   today: [],
+  week: [],
+  projects: [],
 };
 
 const authReducer = (state = initialState, action) => {

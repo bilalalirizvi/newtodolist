@@ -3,7 +3,7 @@ import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
 import { useSelector } from "react-redux";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const SideBar = (props) => {
   const { handleActive, active } = props;

@@ -1,34 +1,32 @@
 import { Box, Button, Stack, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { createNote } from "../../../store/actions/note";
+import { Progress } from "../../../components";
 
 const Note = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
+  const NOTES = useSelector((state) => state.Note);
+
+  const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
     title: Yup.string().required("Required"),
     details: Yup.string().required("Required"),
   });
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    errors,
-    touched,
-    // resetForm,
-  } = useFormik({
-    initialValues: {
-      title: "",
-      details: "",
-    },
-    validationSchema: schema,
-    onSubmit: (values) => {
-      // console.log("values", values);
-    },
-  });
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: {
+        title: "",
+        details: "",
+      },
+      validationSchema: schema,
+      onSubmit: (values) => {
+        dispatch(createNote(values));
+      },
+    });
   return (
     <Box
       component="form"
@@ -75,7 +73,7 @@ const Note = () => {
           },
         }}
       >
-        Create Note
+        {NOTES?.loading ? <Progress /> : "Create Note"}
       </Button>
     </Box>
   );

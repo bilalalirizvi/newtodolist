@@ -1,8 +1,41 @@
-import React from "react";
+import { Box } from "@mui/material";
+import React, { useEffect } from "react";
 import "./styles.css";
+import { useSelector, useDispatch } from "react-redux";
+import { getNote } from "../../../store/actions/note";
+import { Loader, NoteCard } from "../../../components";
 
-const index = () => {
-  return <div>index</div>;
+const Note = () => {
+  const NOTES = useSelector((state) => state.Note);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getNote());
+  }, []);
+
+  return (
+    <>
+      {NOTES.loading ? (
+        <Loader />
+      ) : (
+        <Box style={styles.noteContainer}>
+          {NOTES?.notes?.map((v, i) => {
+            return <NoteCard key={i} data={v} />;
+          })}
+        </Box>
+      )}
+    </>
+  );
 };
 
-export default index;
+export default Note;
+
+const styles = {
+  noteContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: "20px",
+  },
+};
