@@ -2,12 +2,18 @@ import logo from "../../../assets/images/logo.png";
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
+import { activeForm } from "../../../store/actions/modal";
 
-const SideBar = (props) => {
-  const { handleActive, active } = props;
+const SideBar = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
+  const MODAL = useSelector((state) => state.Modal);
+  const dispatch = useDispatch();
+  const handleActive = (value) => {
+    dispatch(activeForm(value));
+  };
+
   return (
     <Box className="modalSideBar">
       <Box className="modalLogo">
@@ -19,20 +25,22 @@ const SideBar = (props) => {
         />
       </Box>
       <Typography
-        className={`link ${active === "todo" && "modalActiveLink"}`}
+        className={`link ${MODAL.activeForm === "todo" && "modalActiveLink"}`}
         onClick={() => handleActive("todo")}
       >
         <SignalCellularAltIcon /> &nbsp; ToDo
       </Typography>
       <Typography
-        className={`link ${active === "project" && "modalActiveLink"}`}
+        className={`link ${
+          MODAL.activeForm === "project" && "modalActiveLink"
+        }`}
         onClick={() => handleActive("project")}
       >
         <AccountTreeIcon />
         &nbsp; Project
       </Typography>
       <Typography
-        className={`link ${active === "note" && "modalActiveLink"}`}
+        className={`link ${MODAL.activeForm === "note" && "modalActiveLink"}`}
         onClick={() => handleActive("note")}
       >
         <NotesIcon />

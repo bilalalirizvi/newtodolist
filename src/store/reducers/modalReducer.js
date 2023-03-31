@@ -5,6 +5,7 @@ import {
   PRIORITY_MODAL_OPEN,
   TODO_MODAL_CLOSE,
   TODO_MODAL_OPEN,
+  UPDATE_ACTIVE_FORM,
 } from "../actions/modal";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   detailsModal: false,
   selectedPriority: {},
   selectedDetails: {},
+  activeForm: "todo",
 };
 
 const modalReducer = (state = initialState, action) => {
@@ -56,6 +58,12 @@ const modalReducer = (state = initialState, action) => {
         ...state,
         detailsModal: false,
         selectedDetails: {},
+      };
+    }
+    case UPDATE_ACTIVE_FORM: {
+      return {
+        ...state,
+        activeForm: payload,
       };
     }
     default:

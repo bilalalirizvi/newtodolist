@@ -24,8 +24,6 @@ const CreateTodo = (props) => {
   const { handleClose } = props;
   const COLORS = useSelector((state) => state.Theme.theme);
   const MODAL = useSelector((state) => state.Modal);
-  const [active, setActive] = useState("todo");
-  const handleActive = (value) => setActive(value);
 
   return (
     <Modal
@@ -35,15 +33,15 @@ const CreateTodo = (props) => {
     >
       <Box sx={style}>
         <Box className="modalBody">
-          <SideBar handleActive={handleActive} active={active} />
+          <SideBar />
           <Box
             className="modalContent"
             sx={{ backgroundColor: COLORS.background }}
           >
             <Header handleClose={handleClose} />
-            {active === "todo" && <Todo />}
-            {active === "project" && <Projects />}
-            {active === "note" && <Note />}
+            {MODAL.activeForm === "todo" && <Todo />}
+            {MODAL.activeForm === "project" && <Projects />}
+            {MODAL.activeForm === "note" && <Note />}
           </Box>
         </Box>
       </Box>
