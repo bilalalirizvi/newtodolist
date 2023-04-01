@@ -40,6 +40,9 @@ export function* createNoteSaga({ payload }) {
       type: CREATE_NOTE_SUCCESS,
     });
     yield put({
+      type: GET_NOTE_REQUEST,
+    });
+    yield put({
       type: TODO_MODAL_CLOSE,
     });
     swal("", "Note added successfully", "success");

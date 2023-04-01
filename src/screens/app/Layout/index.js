@@ -28,8 +28,13 @@ import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { todoModalClose, todoModalOpen } from "../../../store/actions/modal";
+import {
+  activeForm,
+  todoModalClose,
+  todoModalOpen,
+} from "../../../store/actions/modal";
 import { cancelEditTodo } from "../../../store/actions/todo";
+import { cancelEditNote } from "../../../store/actions/note";
 
 const drawerWidth = 300;
 
@@ -43,15 +48,29 @@ function Layout(props) {
 
   const dispatch = useDispatch();
 
-  // Create Modal Start
-  const handleOpen = () => dispatch(todoModalOpen(true));
+  const handleOpen = () => {
+    dispatch(todoModalOpen(true));
+    switch (pathname) {
+      case "/":
+        return dispatch(activeForm("todo"));
+      case "/projects":
+        return dispatch(activeForm("project"));
+      case "/notes":
+        return dispatch(activeForm("note"));
+      default:
+        return dispatch(activeForm("todo"));
+    }
+  };
+
   const handleClose = () => {
     dispatch(todoModalClose(true));
     if (TODOS.isEditTodo) {
       dispatch(cancelEditTodo());
     }
+    if (NOTES.isEditNote) {
+      dispatch(cancelEditNote());
+    }
   };
-  // Create Modal End
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

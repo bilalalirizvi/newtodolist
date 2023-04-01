@@ -79,8 +79,8 @@ const TodoCard = ({ data, projectShow = false }) => {
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
-      dispatch(deleteTodo(docId));
       if (willDelete) {
+        dispatch(deleteTodo(docId));
         swal("", "Deleted successfully", "success");
       }
     });

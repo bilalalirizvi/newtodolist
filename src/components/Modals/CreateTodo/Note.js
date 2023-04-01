@@ -2,12 +2,13 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createNote } from "../../../store/actions/note";
+import { createNote, updateNote } from "../../../store/actions/note";
 import { Progress } from "../../../components";
 
 const Note = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const NOTES = useSelector((state) => state.Note);
+  console.log("NOTES:", NOTES);
 
   const dispatch = useDispatch();
 
@@ -19,12 +20,16 @@ const Note = () => {
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
-        title: "",
-        details: "",
+        title: NOTES?.editNote?.title || "",
+        details: NOTES?.editNote?.details || "",
       },
       validationSchema: schema,
       onSubmit: (values) => {
-        dispatch(createNote(values));
+        if (NOTES?.isEditNote) {
+          dispatch(updateNote({ ...values, docId: NOTES?.editNote?.docId }));
+        } else {
+          dispatch(createNote(values));
+        }
       },
     });
   return (
@@ -62,19 +67,35 @@ const Note = () => {
           error={!!(errors.details && touched.details && errors.details)}
         />
       </Stack>
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{
-          color: COLORS.white,
-          backgroundColor: COLORS.primary,
-          "&:hover": {
+      {NOTES.isEditNote ? (
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            color: COLORS.white,
             backgroundColor: COLORS.primary,
-          },
-        }}
-      >
-        {NOTES?.loading ? <Progress /> : "Create Note"}
-      </Button>
+            "&:hover": {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        >
+          {NOTES?.loading ? <Progress /> : "Update Note"}
+        </Button>
+      ) : (
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            color: COLORS.white,
+            backgroundColor: COLORS.primary,
+            "&:hover": {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        >
+          {NOTES?.loading ? <Progress /> : "Create Note"}
+        </Button>
+      )}
     </Box>
   );
 };
