@@ -82,6 +82,9 @@ const styles = {
     },
     padding: "20px",
     borderRadius: "5px",
+    "&:hover": {
+      boxShadow: "0px 0px 13px -7px rgba(107, 107, 107, 0.75)",
+    },
   },
   title: {
     fontWeight: "bold",

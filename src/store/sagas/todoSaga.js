@@ -14,20 +14,16 @@ import { db } from "../../configs/firebase";
 import { sortDataByDate } from "../../utils";
 import { PRIORITY_MODAL_CLOSE, TODO_MODAL_CLOSE } from "../actions/modal";
 import {
-  CREATE_PROJECT_SUCCESS,
-  CREATE_PROJECT_FAILED,
   CREATE_TODO_SUCCESS,
   CREATE_TODO_FAILED,
-  GET_PROJECT_SUCCESS,
-  GET_PROJECT_FAILED,
   GET_TODO_REQUEST,
   GET_TODO_SUCCESS,
   GET_TODO_FAILED,
-  IS_COMPLETED_FAILED,
-  UPDATE_PRIORITY_SUCCESS,
-  UPDATE_PRIORITY_FAILED,
   UPDATE_TODO_SUCCESS,
   UPDATE_TODO_FAILED,
+  UPDATE_PRIORITY_SUCCESS,
+  UPDATE_PRIORITY_FAILED,
+  IS_COMPLETED_FAILED,
 } from "../actions/todo";
 
 const userId = localStorage.getItem("userId");
@@ -126,54 +122,7 @@ export function* deleteTodoSaga({ payload }) {
   }
 }
 
-// Create Project
-export function* createProjectSaga({ payload }) {
-  try {
-    const ref = collection(db, "projects");
-    yield call(addDoc, ref, {
-      title: payload.title,
-      ...user,
-    });
-    yield put({
-      type: CREATE_PROJECT_SUCCESS,
-    });
-    yield put({
-      type: TODO_MODAL_CLOSE,
-    });
-    swal("", "Project added successfully", "success");
-  } catch ({ message }) {
-    swal("", `${message}`, "error");
-    yield put({
-      type: CREATE_PROJECT_FAILED,
-    });
-  }
-}
-
 // -----------------------------------------------
-
-// Get Project
-export function* getProjectSaga() {
-  try {
-    const q = query(collection(db, "projects"), where("userId", "==", userId));
-    const querySnapshot = yield call(getDocs, q);
-    const tempData = [];
-    querySnapshot.forEach((doc) => {
-      tempData.push({
-        ...doc.data(),
-        docId: doc.id,
-      });
-    });
-    yield put({
-      type: GET_PROJECT_SUCCESS,
-      payload: sortDataByDate(tempData),
-    });
-  } catch ({ message }) {
-    swal("", `${message}`, "error");
-    yield put({
-      type: GET_PROJECT_FAILED,
-    });
-  }
-}
 
 // Update Priority
 export function* updatePrioritySaga({ payload }) {

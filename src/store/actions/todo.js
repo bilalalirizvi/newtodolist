@@ -10,21 +10,12 @@ export const DELETE_TODO_REQUEST = "DELETE_TODO_REQUEST";
 export const DELETE_TODO_SUCCESS = "DELETE_TODO_SUCCESS";
 export const DELETE_TODO_FAILED = "DELETE_TODO_FAILED";
 
+export const EDIT_TODO_REQUEST = "EDIT_TODO_REQUEST";
+export const EDIT_TODO_CANCEL = "EDIT_TODO_CANCEL";
+
 export const UPDATE_TODO_REQUEST = "UPDATE_TODO_REQUEST";
 export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
 export const UPDATE_TODO_FAILED = "UPDATE_TODO_FAILED";
-
-export const CREATE_PROJECT_REQUEST = "CREATE_PROJECT_REQUEST";
-export const CREATE_PROJECT_SUCCESS = "CREATE_PROJECT_SUCCESS";
-export const CREATE_PROJECT_FAILED = "CREATE_PROJECT_FAILED";
-
-export const GET_PROJECT_REQUEST = "GET_PROJECT_REQUEST";
-export const GET_PROJECT_SUCCESS = "GET_PROJECT_SUCCESS";
-export const GET_PROJECT_FAILED = "GET_PROJECT_FAILED";
-
-export const CREATE_NOTE_REQUEST = "CREATE_NOTE_REQUEST";
-export const CREATE_NOTE_SUCCESS = "CREATE_NOTE_SUCCESS";
-export const CREATE_NOTE_FAILED = "CREATE_NOTE_FAILED";
 
 export const UPDATE_PRIORITY_REQUEST = "UPDATE_PRIORITY_REQUEST";
 export const UPDATE_PRIORITY_SUCCESS = "UPDATE_PRIORITY_SUCCESS";
@@ -34,26 +25,10 @@ export const IS_COMPLETED_REQUEST = "IS_COMPLETED_REQUEST";
 export const IS_COMPLETED_SUCCESS = "IS_COMPLETED_SUCCESS";
 export const IS_COMPLETED_FAILED = "IS_COMPLETED_FAILED";
 
-export const EDIT_TODO_REQUEST = "EDIT_TODO_REQUEST";
-export const EDIT_TODO_CANCEL = "EDIT_TODO_CANCEL";
-
+// Create Todo
 export const createTodo = (payload) => {
   return {
     type: CREATE_TODO_REQUEST,
-    payload: payload,
-  };
-};
-
-export const createProject = (payload) => {
-  return {
-    type: CREATE_PROJECT_REQUEST,
-    payload: payload,
-  };
-};
-
-export const createNote = (payload) => {
-  return {
-    type: CREATE_NOTE_REQUEST,
     payload: payload,
   };
 };
@@ -62,37 +37,6 @@ export const createNote = (payload) => {
 export const getTodos = () => {
   return {
     type: GET_TODO_REQUEST,
-  };
-};
-
-// Get Projects
-export const getProjects = () => {
-  return {
-    type: GET_PROJECT_REQUEST,
-  };
-};
-
-// Update Priority Status
-export const updatePriority = (payload) => {
-  return {
-    type: UPDATE_PRIORITY_REQUEST,
-    payload: payload,
-  };
-};
-
-// Delete Todo
-export const deleteTodo = (payload) => {
-  return {
-    type: DELETE_TODO_REQUEST,
-    payload: payload,
-  };
-};
-
-// Is Completed Todo
-export const isCompletedTodo = (payload) => {
-  return {
-    type: IS_COMPLETED_REQUEST,
-    payload: payload,
   };
 };
 
@@ -115,6 +59,30 @@ export const cancelEditTodo = () => {
 export const updateTodo = (payload) => {
   return {
     type: UPDATE_TODO_REQUEST,
+    payload: payload,
+  };
+};
+
+// Delete Todo
+export const deleteTodo = (payload) => {
+  return {
+    type: DELETE_TODO_REQUEST,
+    payload: payload,
+  };
+};
+
+// Update Priority Status
+export const updatePriority = (payload) => {
+  return {
+    type: UPDATE_PRIORITY_REQUEST,
+    payload: payload,
+  };
+};
+
+// Is Completed Todo
+export const isCompletedTodo = (payload) => {
+  return {
+    type: IS_COMPLETED_REQUEST,
     payload: payload,
   };
 };

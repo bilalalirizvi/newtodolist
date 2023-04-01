@@ -4,6 +4,7 @@ import authReducer from "./authReducer";
 import todoReducer from "./todoReducer";
 import modalReducer from "./modalReducer";
 import noteReducer from "./noteReducer";
+import projectReducer from "./projectReducer";
 
 export default combineReducers({
   Theme: themeReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   Todo: todoReducer,
   Modal: modalReducer,
   Note: noteReducer,
+  Project: projectReducer,
 });

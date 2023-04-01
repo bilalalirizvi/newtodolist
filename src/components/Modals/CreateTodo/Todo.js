@@ -16,16 +16,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import {
-  createTodo,
-  getProjects,
-  updateTodo,
-} from "../../../store/actions/todo";
+import { createTodo, updateTodo } from "../../../store/actions/todo";
+import { getProjects } from "../../../store/actions/project";
 import Progress from "../../Progress";
 
 const Todo = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
+  const PROJECT = useSelector((state) => state.Project);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProjects());
@@ -98,10 +96,10 @@ const Todo = () => {
           error={!!(errors.type && touched.type && errors.type)}
         >
           <MenuItem value={"general"}>General</MenuItem>
-          {TODOS?.projects?.length > 0 && (
+          {PROJECT?.projects?.length > 0 && (
             <ListSubheader>Projects</ListSubheader>
           )}
-          {TODOS?.projects?.map((v, i) => (
+          {PROJECT?.projects?.map((v, i) => (
             <MenuItem key={i} value={v?.title}>
               {v?.title}
             </MenuItem>

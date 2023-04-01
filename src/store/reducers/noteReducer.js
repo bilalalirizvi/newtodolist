@@ -19,7 +19,7 @@ const initialState = {
   isEditNote: false,
 };
 
-const authReducer = (state = initialState, action) => {
+const noteReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     // Create
@@ -102,4 +102,4 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export default authReducer;
+export default noteReducer;

@@ -1,14 +1,15 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createProject } from "../../../store/actions/todo";
+import { createProject } from "../../../store/actions/project";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, TextField } from "@mui/material";
 import { Progress } from "../../../components";
 
 const Projects = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
-  const AUTH = useSelector((state) => state.Auth);
+  const PROJECT = useSelector((state) => state.Project);
+  console.log("PROJECT:", PROJECT);
   const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
@@ -63,7 +64,7 @@ const Projects = () => {
           },
         }}
       >
-        {AUTH?.loading ? <Progress /> : "Create Project"}
+        {PROJECT?.loading ? <Progress /> : "Create Project"}
       </Button>
     </Box>
   );

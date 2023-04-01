@@ -11,6 +11,7 @@ import {
 import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
 import { db } from "../../configs/firebase";
+import { sortDataByDate } from "../../utils";
 import { TODO_MODAL_CLOSE } from "../actions/modal";
 import {
   CREATE_NOTE_SUCCESS,
@@ -68,7 +69,7 @@ export function* getNoteSaga() {
     });
     yield put({
       type: GET_NOTE_SUCCESS,
-      payload: tempData,
+      payload: sortDataByDate(tempData),
     });
   } catch ({ message }) {
     swal("", `${message}`, "error");

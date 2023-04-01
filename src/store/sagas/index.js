@@ -6,20 +6,22 @@ import {
 } from "../actions/auth";
 import {
   CREATE_NOTE_REQUEST,
-  DELETE_NOTE_REQUEST,
   GET_NOTE_REQUEST,
   UPDATE_NOTE_REQUEST,
+  DELETE_NOTE_REQUEST,
 } from "../actions/note";
 import {
-  CREATE_PROJECT_REQUEST,
   CREATE_TODO_REQUEST,
-  DELETE_TODO_REQUEST,
-  GET_PROJECT_REQUEST,
   GET_TODO_REQUEST,
+  UPDATE_TODO_REQUEST,
+  DELETE_TODO_REQUEST,
   IS_COMPLETED_REQUEST,
   UPDATE_PRIORITY_REQUEST,
-  UPDATE_TODO_REQUEST,
 } from "../actions/todo";
+import {
+  CREATE_PROJECT_REQUEST,
+  GET_PROJECT_REQUEST,
+} from "../actions/project";
 import { createNewUserSaga, logoutSaga, userLoginSaga } from "./authSaga";
 import {
   createNoteSaga,
@@ -28,21 +30,23 @@ import {
   updateNoteSaga,
 } from "./noteSaga";
 import {
-  createProjectSaga,
   createTodoSaga,
   deleteTodoSaga,
-  getProjectSaga,
   getTodoSaga,
   updateIsCompletedSaga,
   updatePrioritySaga,
   updateTodoSaga,
 } from "./todoSaga";
+import { createProjectSaga, getProjectSaga } from "./projectSaga";
 
 export default function* rootSagas() {
   // Auth
   yield all([takeEvery(CREATE_USER_REQUEST, createNewUserSaga)]);
   yield all([takeEvery(USER_LOGIN_REQUEST, userLoginSaga)]);
   yield all([takeEvery(LOGOUT_REQUEST, logoutSaga)]);
+
+  // Is completed
+  yield all([takeEvery(IS_COMPLETED_REQUEST, updateIsCompletedSaga)]);
 
   // Todo
   yield all([takeEvery(CREATE_TODO_REQUEST, createTodoSaga)]);
@@ -54,9 +58,6 @@ export default function* rootSagas() {
   yield all([takeEvery(CREATE_PROJECT_REQUEST, createProjectSaga)]);
   yield all([takeEvery(GET_PROJECT_REQUEST, getProjectSaga)]);
   yield all([takeEvery(UPDATE_PRIORITY_REQUEST, updatePrioritySaga)]);
-
-  // Is completed
-  yield all([takeEvery(IS_COMPLETED_REQUEST, updateIsCompletedSaga)]);
 
   // Notes
   yield all([takeEvery(CREATE_NOTE_REQUEST, createNoteSaga)]);

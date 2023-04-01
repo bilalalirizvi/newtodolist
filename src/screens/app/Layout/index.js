@@ -132,7 +132,7 @@ function Layout(props) {
         />
         <Link
           to={"week"}
-          title={"Week"}
+          title={"This Week"}
           icon={<ViewWeekIcon />}
           count={TODOS?.week?.length || 0}
         />
@@ -195,7 +195,7 @@ function Layout(props) {
           >
             {pathname === "/" && "Home"}
             {pathname === "/today" && "Today"}
-            {pathname === "/week" && "Week"}
+            {pathname === "/week" && "This Week"}
             {pathname === "/projects" && "Projects"}
             {pathname === "/notes" && "Notes"}
           </Typography>

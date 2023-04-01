@@ -8,7 +8,6 @@ import { Progress } from "../../../components";
 const Note = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const NOTES = useSelector((state) => state.Note);
-  console.log("NOTES:", NOTES);
 
   const dispatch = useDispatch();
 
