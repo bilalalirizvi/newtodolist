@@ -28,6 +28,7 @@ import { letterCase } from "../../utils";
 
 // Component Modal
 import {
+  activeForm,
   detailsModalOpen,
   priorityModalOpen,
   todoModalOpen,
@@ -92,6 +93,7 @@ const TodoCard = ({ data, projectShow = false }) => {
 
   // Edit Todo
   const handleEdit = () => {
+    dispatch(activeForm("todo"));
     dispatch(todoModalOpen());
     dispatch(editTodo(data));
   };
