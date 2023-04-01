@@ -20,6 +20,11 @@ import {
   IS_COMPLETED_REQUEST,
   IS_COMPLETED_SUCCESS,
   IS_COMPLETED_FAILED,
+  EDIT_TODO_REQUEST,
+  EDIT_TODO_CANCEL,
+  UPDATE_TODO_REQUEST,
+  UPDATE_TODO_SUCCESS,
+  UPDATE_TODO_FAILED,
 } from "../actions/todo";
 
 const initialState = {
@@ -28,6 +33,8 @@ const initialState = {
   today: [],
   week: [],
   projects: [],
+  editTodo: {},
+  isEditTodo: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -47,6 +54,75 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case CREATE_TODO_FAILED: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    // Get Todo
+    case GET_TODO_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case GET_TODO_SUCCESS: {
+      const todayTodo = payload?.filter(
+        (v) =>
+          moment(v.date).format("DD") ===
+          moment(new Date().toISOString()).format("DD")
+      );
+      var start = moment().clone().startOf("isoWeek");
+      var end = moment().clone().endOf("isoWeek");
+      const weekTodo = payload?.filter(
+        (v) => moment(v.date) > start && moment(v.date) < end
+      );
+      return {
+        ...state,
+        todos: payload,
+        loading: false,
+        today: todayTodo,
+        week: weekTodo,
+      };
+    }
+    case GET_TODO_FAILED: {
+      return {
+        ...state,
+        loading: false,
+        todos: [],
+      };
+    }
+    //Edit Todo
+    case EDIT_TODO_REQUEST: {
+      return {
+        ...state,
+        editTodo: payload,
+        isEditTodo: true,
+      };
+    }
+    case EDIT_TODO_CANCEL: {
+      return {
+        ...state,
+        editTodo: {},
+        isEditTodo: false,
+      };
+    }
+    // Update Todo
+    case UPDATE_TODO_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case UPDATE_TODO_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        editTodo: {},
+        isEditTodo: false,
+      };
+    }
+    case UPDATE_TODO_FAILED: {
       return {
         ...state,
         loading: false,
@@ -88,39 +164,6 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-      };
-    }
-    // Get Todo
-    case GET_TODO_REQUEST: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
-    case GET_TODO_SUCCESS: {
-      const todayTodo = payload?.filter(
-        (v) =>
-          moment(v.date).format("DD") ===
-          moment(new Date().toISOString()).format("DD")
-      );
-      var start = moment().clone().startOf("isoWeek");
-      var end = moment().clone().endOf("isoWeek");
-      const weekTodo = payload?.filter(
-        (v) => moment(v.date) > start && moment(v.date) < end
-      );
-      return {
-        ...state,
-        todos: payload,
-        loading: false,
-        today: todayTodo,
-        week: weekTodo,
-      };
-    }
-    case GET_TODO_FAILED: {
-      return {
-        ...state,
-        loading: false,
-        todos: [],
       };
     }
     // Get Project

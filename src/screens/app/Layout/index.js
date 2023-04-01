@@ -29,6 +29,7 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { todoModalClose, todoModalOpen } from "../../../store/actions/modal";
+import { cancelEditTodo } from "../../../store/actions/todo";
 
 const drawerWidth = 300;
 
@@ -44,7 +45,12 @@ function Layout(props) {
 
   // Create Modal Start
   const handleOpen = () => dispatch(todoModalOpen(true));
-  const handleClose = () => dispatch(todoModalClose(true));
+  const handleClose = () => {
+    dispatch(todoModalClose(true));
+    if (TODOS.isEditTodo) {
+      dispatch(cancelEditTodo());
+    }
+  };
   // Create Modal End
 
   const handleDrawerToggle = () => {

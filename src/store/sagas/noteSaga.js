@@ -51,7 +51,7 @@ export function* createNoteSaga({ payload }) {
   }
 }
 
-// Get Todo
+// Get Note
 export function* getNoteSaga() {
   try {
     const q = query(collection(db, "notes"), where("userId", "==", userId));
@@ -101,7 +101,7 @@ export function* updateNoteSaga({ payload }) {
   }
 }
 
-// Delete Todo
+// Delete Note
 export function* deleteNoteSaga({ payload }) {
   try {
     const ref = doc(db, "notes", payload);

@@ -10,23 +10,24 @@ import {
 } from "firebase/firestore";
 import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
-import { array } from "yup";
 import { db } from "../../configs/firebase";
 import { sortDataByDate } from "../../utils";
 import { PRIORITY_MODAL_CLOSE, TODO_MODAL_CLOSE } from "../actions/modal";
 import {
-  CREATE_PROJECT_FAILED,
   CREATE_PROJECT_SUCCESS,
-  CREATE_TODO_FAILED,
+  CREATE_PROJECT_FAILED,
   CREATE_TODO_SUCCESS,
-  GET_PROJECT_FAILED,
+  CREATE_TODO_FAILED,
   GET_PROJECT_SUCCESS,
-  GET_TODO_FAILED,
+  GET_PROJECT_FAILED,
   GET_TODO_REQUEST,
   GET_TODO_SUCCESS,
+  GET_TODO_FAILED,
   IS_COMPLETED_FAILED,
-  UPDATE_PRIORITY_FAILED,
   UPDATE_PRIORITY_SUCCESS,
+  UPDATE_PRIORITY_FAILED,
+  UPDATE_TODO_SUCCESS,
+  UPDATE_TODO_FAILED,
 } from "../actions/todo";
 
 const userId = localStorage.getItem("userId");
@@ -44,6 +45,9 @@ export function* createTodoSaga({ payload }) {
     const ref = collection(db, "todos");
     yield call(addDoc, ref, { ...payload, ...user });
     yield put({
+      type: GET_TODO_REQUEST,
+    });
+    yield put({
       type: CREATE_TODO_SUCCESS,
     });
     yield put({
@@ -54,29 +58,6 @@ export function* createTodoSaga({ payload }) {
     swal("", `${message}`, "error");
     yield put({
       type: CREATE_TODO_FAILED,
-    });
-  }
-}
-
-// Create Project
-export function* createProjectSaga({ payload }) {
-  try {
-    const ref = collection(db, "projects");
-    yield call(addDoc, ref, {
-      title: payload.title,
-      ...user,
-    });
-    yield put({
-      type: CREATE_PROJECT_SUCCESS,
-    });
-    yield put({
-      type: TODO_MODAL_CLOSE,
-    });
-    swal("", "Project added successfully", "success");
-  } catch ({ message }) {
-    swal("", `${message}`, "error");
-    yield put({
-      type: CREATE_PROJECT_FAILED,
     });
   }
 }
@@ -104,6 +85,71 @@ export function* getTodoSaga() {
     });
   }
 }
+
+// Update Todo
+export function* updateTodoSaga({ payload }) {
+  try {
+    const ref = doc(db, "todos", payload.docId);
+    delete payload["docId"];
+    yield call(updateDoc, ref, {
+      ...payload,
+      updatedBy: updatedBy,
+    });
+    yield put({
+      type: GET_TODO_REQUEST,
+    });
+    yield put({
+      type: UPDATE_TODO_SUCCESS,
+    });
+    yield put({
+      type: TODO_MODAL_CLOSE,
+    });
+    swal("", "Updated successfully", "success");
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+    yield put({
+      type: UPDATE_TODO_FAILED,
+    });
+  }
+}
+
+// Delete Todo
+export function* deleteTodoSaga({ payload }) {
+  try {
+    const ref = doc(db, "todos", payload);
+    yield call(deleteDoc, ref);
+    yield put({
+      type: GET_TODO_REQUEST,
+    });
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+  }
+}
+
+// Create Project
+export function* createProjectSaga({ payload }) {
+  try {
+    const ref = collection(db, "projects");
+    yield call(addDoc, ref, {
+      title: payload.title,
+      ...user,
+    });
+    yield put({
+      type: CREATE_PROJECT_SUCCESS,
+    });
+    yield put({
+      type: TODO_MODAL_CLOSE,
+    });
+    swal("", "Project added successfully", "success");
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+    yield put({
+      type: CREATE_PROJECT_FAILED,
+    });
+  }
+}
+
+// -----------------------------------------------
 
 // Get Project
 export function* getProjectSaga() {
@@ -155,7 +201,7 @@ export function* updatePrioritySaga({ payload }) {
   }
 }
 
-// Update Priority
+// Update IsCompeleted
 export function* updateIsCompletedSaga({ payload }) {
   try {
     const ref = doc(db, "todos", payload.docId);
@@ -172,18 +218,5 @@ export function* updateIsCompletedSaga({ payload }) {
     yield put({
       type: IS_COMPLETED_FAILED,
     });
-  }
-}
-
-// Delete Todo
-export function* deleteTodoSaga({ payload }) {
-  try {
-    const ref = doc(db, "todos", payload);
-    yield call(deleteDoc, ref);
-    yield put({
-      type: GET_TODO_REQUEST,
-    });
-  } catch ({ message }) {
-    swal("", `${message}`, "error");
   }
 }

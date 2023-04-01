@@ -10,6 +10,10 @@ export const DELETE_TODO_REQUEST = "DELETE_TODO_REQUEST";
 export const DELETE_TODO_SUCCESS = "DELETE_TODO_SUCCESS";
 export const DELETE_TODO_FAILED = "DELETE_TODO_FAILED";
 
+export const UPDATE_TODO_REQUEST = "UPDATE_TODO_REQUEST";
+export const UPDATE_TODO_SUCCESS = "UPDATE_TODO_SUCCESS";
+export const UPDATE_TODO_FAILED = "UPDATE_TODO_FAILED";
+
 export const CREATE_PROJECT_REQUEST = "CREATE_PROJECT_REQUEST";
 export const CREATE_PROJECT_SUCCESS = "CREATE_PROJECT_SUCCESS";
 export const CREATE_PROJECT_FAILED = "CREATE_PROJECT_FAILED";
@@ -29,6 +33,9 @@ export const UPDATE_PRIORITY_FAILED = "UPDATE_PRIORITY_FAILED";
 export const IS_COMPLETED_REQUEST = "IS_COMPLETED_REQUEST";
 export const IS_COMPLETED_SUCCESS = "IS_COMPLETED_SUCCESS";
 export const IS_COMPLETED_FAILED = "IS_COMPLETED_FAILED";
+
+export const EDIT_TODO_REQUEST = "EDIT_TODO_REQUEST";
+export const EDIT_TODO_CANCEL = "EDIT_TODO_CANCEL";
 
 export const createTodo = (payload) => {
   return {
@@ -85,6 +92,29 @@ export const deleteTodo = (payload) => {
 export const isCompletedTodo = (payload) => {
   return {
     type: IS_COMPLETED_REQUEST,
+    payload: payload,
+  };
+};
+
+// Edit Todo
+export const editTodo = (payload) => {
+  return {
+    type: EDIT_TODO_REQUEST,
+    payload: payload,
+  };
+};
+
+// Cancel Edit
+export const cancelEditTodo = () => {
+  return {
+    type: EDIT_TODO_CANCEL,
+  };
+};
+
+// Update Todo
+export const updateTodo = (payload) => {
+  return {
+    type: UPDATE_TODO_REQUEST,
     payload: payload,
   };
 };

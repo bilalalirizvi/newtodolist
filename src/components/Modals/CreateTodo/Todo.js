@@ -16,7 +16,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import { createTodo, getProjects, getTodos } from "../../../store/actions/todo";
+import {
+  createTodo,
+  getProjects,
+  updateTodo,
+} from "../../../store/actions/todo";
 import Progress from "../../Progress";
 
 const Todo = () => {
@@ -43,24 +47,27 @@ const Todo = () => {
     errors,
     touched,
     setFieldValue,
-    // resetForm,
   } = useFormik({
     initialValues: {
-      type: "",
-      title: "",
-      details: "",
-      date: dayjs(),
-      priority: "",
+      type: TODOS.editTodo.type || "",
+      title: TODOS.editTodo.title || "",
+      details: TODOS.editTodo.details || "",
+      date: dayjs(TODOS.editTodo.date) || dayjs(),
+      priority: TODOS.editTodo.priority || "",
     },
     validationSchema: todoScheme,
     onSubmit: (values) => {
+      const isCompleted = { isCompleted: false };
+      const docId = { docId: TODOS.editTodo.docId };
       const obj = {
         ...values,
         date: dayjs(values?.date).toISOString(),
-        isCompleted: false,
       };
-      dispatch(createTodo(obj));
-      dispatch(getTodos());
+      if (TODOS.isEditTodo) {
+        dispatch(updateTodo({ ...obj, ...docId }));
+      } else {
+        dispatch(createTodo({ ...obj, ...isCompleted }));
+      }
     },
   });
 
@@ -167,19 +174,35 @@ const Todo = () => {
           <MenuItem value={"high"}>High</MenuItem>
         </Select>
       </FormControl>
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{
-          color: COLORS.white,
-          backgroundColor: COLORS.primary,
-          "&:hover": {
+      {TODOS.isEditTodo ? (
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            color: COLORS.white,
             backgroundColor: COLORS.primary,
-          },
-        }}
-      >
-        {TODOS.loading ? <Progress /> : "Add Todo"}
-      </Button>
+            "&:hover": {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        >
+          {TODOS.loading ? <Progress /> : "Update Todo"}
+        </Button>
+      ) : (
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            color: COLORS.white,
+            backgroundColor: COLORS.primary,
+            "&:hover": {
+              backgroundColor: COLORS.primary,
+            },
+          }}
+        >
+          {TODOS.loading ? <Progress /> : "Add Todo"}
+        </Button>
+      )}
     </Box>
   );
 };

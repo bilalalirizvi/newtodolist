@@ -6,7 +6,6 @@ import moment from "moment";
 
 const NoteCard = ({ data }) => {
   const { title, details, createdBy } = data;
-  console.log("title:", title);
   const COLORS = useSelector((state) => state.Theme.theme);
 
   return (

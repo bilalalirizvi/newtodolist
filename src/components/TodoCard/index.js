@@ -27,11 +27,19 @@ import swal from "sweetalert";
 import { letterCase } from "../../utils";
 
 // Component Modal
-import { detailsModalOpen, priorityModalOpen } from "../../store/actions/modal";
-import { deleteTodo, isCompletedTodo } from "../../store/actions/todo";
+import {
+  detailsModalOpen,
+  priorityModalOpen,
+  todoModalOpen,
+} from "../../store/actions/modal";
+import {
+  deleteTodo,
+  editTodo,
+  isCompletedTodo,
+} from "../../store/actions/todo";
 
 const TodoCard = ({ data, projectShow = false }) => {
-  const { title, date, isCompleted, type, priority, details, docId } = data;
+  const { title, date, isCompleted, type, priority, docId } = data;
 
   const dispatch = useDispatch();
 
@@ -40,9 +48,6 @@ const TodoCard = ({ data, projectShow = false }) => {
 
   // Menu
   const [anchorEl, setAnchorEl] = useState(null);
-
-  // Priority
-  // const [priorityModalOpen, setPriorityModalOpen] = useState(false);
 
   // Menu
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -80,8 +85,15 @@ const TodoCard = ({ data, projectShow = false }) => {
     });
   };
 
+  // IsCompleted Todo
   const hanldeIsCompleted = () => {
     dispatch(isCompletedTodo({ docId, isCompleted }));
+  };
+
+  // Edit Todo
+  const handleEdit = () => {
+    dispatch(todoModalOpen());
+    dispatch(editTodo(data));
   };
 
   // Get Priority Status Color
@@ -146,7 +158,11 @@ const TodoCard = ({ data, projectShow = false }) => {
             {moment(date).format("hh:mm A")}
           </Typography>
         </Stack>
-        <BorderColorIcon className="actionIcon" sx={{ color: COLORS.icon }} />
+        <BorderColorIcon
+          className="actionIcon"
+          sx={{ color: COLORS.icon }}
+          onClick={handleEdit}
+        />
         <DeleteIcon
           className="actionIcon"
           sx={{ color: COLORS.icon }}

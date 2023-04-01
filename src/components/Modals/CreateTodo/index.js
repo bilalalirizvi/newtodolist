@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 import SideBar from "./SideBar";
 import Header from "./Header";
-import { useState } from "react";
 import Todo from "./Todo";
 import Projects from "./Projects";
 import Note from "./Note";
