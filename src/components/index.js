@@ -7,6 +7,7 @@ import Loader from "./Loader";
 import MainTodo from "./MainTodo";
 import NoteCard from "./NoteCard";
 import ProjectCard from "./ProjectCard";
+import Empty from "./Empty";
 
 export {
   MainTodo,
@@ -18,4 +19,5 @@ export {
   Loader,
   NoteCard,
   ProjectCard,
+  Empty,
 };
