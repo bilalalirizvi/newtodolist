@@ -32,6 +32,7 @@ const Projects = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
+      console.log("values:", values);
       if (PROJECT.isEditProject) {
         dispatch(
           updateProject({ ...values, docId: PROJECT?.editProject?.docId })

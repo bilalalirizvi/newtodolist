@@ -11,6 +11,7 @@ import {
   deleteAllProjectTodo,
   deleteProject,
 } from "../../../store/actions/project";
+import { todoModalOpen } from "../../../store/actions/modal";
 
 const Project = () => {
   const { title, projectId } = useParams();
@@ -82,11 +83,18 @@ const Project = () => {
         <Typography variant="h5">
           Create a new to-do item or delete project.
         </Typography>
-        <Box>
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="outlined"
+            color="success"
+            onClick={() => dispatch(todoModalOpen())}
+          >
+            Add Todo
+          </Button>
           <Button variant="outlined" color="error" onClick={deleteProjectFn}>
             Delete Project
           </Button>
-        </Box>
+        </Stack>
       </Stack>
     );
   };

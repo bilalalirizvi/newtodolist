@@ -7,6 +7,8 @@ import {
   query,
   updateDoc,
   where,
+  batch,
+  writeBatch,
 } from "firebase/firestore";
 import { Navigate } from "react-router-dom";
 import { put, call } from "redux-saga/effects";
@@ -39,7 +41,7 @@ export function* createProjectSaga({ payload }) {
   try {
     const ref = collection(db, "projects");
     yield call(addDoc, ref, {
-      title: payload.title,
+      ...payload,
       ...user,
     });
     yield put({
@@ -47,6 +49,9 @@ export function* createProjectSaga({ payload }) {
     });
     yield put({
       type: TODO_MODAL_CLOSE,
+    });
+    yield put({
+      type: GET_PROJECT_REQUEST,
     });
     swal("", "Project added successfully", "success");
   } catch ({ message }) {
@@ -123,15 +128,26 @@ export function* deleteProjectSaga({ payload }) {
 
 // Delete
 export function* deleteAllProjectTodoSaga({ payload }) {
-  console.log("payload:", payload);
-  // try {
-  //   const ref = doc(db, "projects", payload.docId);
-  //   yield call(deleteDoc, ref);
-  //   yield put({
-  //     type: GET_PROJECT_REQUEST,
-  //   });
-  //   payload.navigate("/projects");
-  // } catch ({ message }) {
-  //   swal("", `${message}`, "error");
-  // }
+  try {
+    const batch = writeBatch(db);
+    const q = query(
+      collection(db, "todos"),
+      where("type", "==", payload.docId)
+    );
+    const querySnapshot = yield call(getDocs, q);
+    querySnapshot.forEach((doc) => batch.delete(doc.ref));
+    batch.commit();
+
+    const ref = doc(db, "projects", payload.docId);
+    yield call(deleteDoc, ref);
+    yield put({
+      type: GET_PROJECT_REQUEST,
+    });
+    yield put({
+      type: GET_TODO_REQUEST,
+    });
+    payload.navigate("/projects");
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+  }
 }
