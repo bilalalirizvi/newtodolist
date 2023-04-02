@@ -1,31 +1,22 @@
 import React from "react";
 import { Box, Typography, Modal, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { firstLetterCapital, letterCase } from "../../../utils";
-import CloseIcon from "@mui/icons-material/Close";
-import { detailsModalClose } from "../../../store/actions/modal";
 import moment from "moment";
+import CloseIcon from "@mui/icons-material/Close";
+import { projectDetailsModalClose } from "../../../store/actions/modal";
 
-const DetailsModal = () => {
+const ProjectDetails = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const MODAL = useSelector((state) => state.Modal);
-  const {
-    title,
-    type: project,
-    createdBy,
-    date: dueDate,
-    isCompleted,
-    priority,
-    details,
-  } = MODAL.selectedDetails;
+  const { title, details, createdBy } = MODAL.selectedProject;
 
   const dispatch = useDispatch();
 
-  const handleDetailsClose = () => dispatch(detailsModalClose());
+  const handleDetailsClose = () => dispatch(projectDetailsModalClose());
 
   return (
     <Modal
-      open={MODAL?.detailsModal}
+      open={MODAL?.projectModal}
       onClose={handleDetailsClose}
       sx={{ background: "rgba(0,0,0,0.6)" }}
     >
@@ -41,22 +32,14 @@ const DetailsModal = () => {
         </Box>
         <Stack style={styles.body}>
           <Stack>
-            <Typography style={styles.textHeading}>Project:</Typography>
             <Typography style={styles.textHeading}>Created By:</Typography>
-            <Typography style={styles.textHeading}>Due Date:</Typography>
-            <Typography style={styles.textHeading}>Completed:</Typography>
-            <Typography style={styles.textHeading}>Priority:</Typography>
             <Typography style={styles.textHeading}>Details:</Typography>
           </Stack>
           <Stack>
-            <Typography>{letterCase(project)}</Typography>
             <Typography>
               {moment(createdBy).format("DD-MM-YYYY | hh:mm A")}
             </Typography>
-            <Typography>{moment(dueDate).format("DD-MM-YYYY")}</Typography>
-            <Typography>{isCompleted ? "Yes" : "No"}</Typography>
-            <Typography>{letterCase(priority)}</Typography>
-            <Typography>{details && firstLetterCapital(details)}</Typography>
+            <Typography>{details}</Typography>
           </Stack>
         </Stack>
       </Box>
@@ -64,7 +47,7 @@ const DetailsModal = () => {
   );
 };
 
-export default DetailsModal;
+export default ProjectDetails;
 
 const styles = {
   modal: {

@@ -6,6 +6,7 @@ import FullPageLoading from "./FullPageLoading";
 import Loader from "./Loader";
 import MainTodo from "./MainTodo";
 import NoteCard from "./NoteCard";
+import ProjectCard from "./ProjectCard";
 
 export {
   MainTodo,
@@ -16,4 +17,5 @@ export {
   FullPageLoading,
   Loader,
   NoteCard,
+  ProjectCard,
 };

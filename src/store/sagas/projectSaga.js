@@ -8,17 +8,22 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import { Navigate } from "react-router-dom";
 import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
 import { db } from "../../configs/firebase";
 import { sortDataByDate } from "../../utils";
-import { PRIORITY_MODAL_CLOSE, TODO_MODAL_CLOSE } from "../actions/modal";
+import { TODO_MODAL_CLOSE } from "../actions/modal";
 import {
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_FAILED,
   GET_PROJECT_SUCCESS,
   GET_PROJECT_FAILED,
+  UPDATE_PROJECT_SUCCESS,
+  UPDATE_PROJECT_FAILED,
+  GET_PROJECT_REQUEST,
 } from "../actions/project";
+import { GET_TODO_REQUEST } from "../actions/todo";
 
 const userId = localStorage.getItem("userId");
 const updatedBy = new Date().toISOString();
@@ -74,4 +79,59 @@ export function* getProjectSaga() {
       type: GET_PROJECT_FAILED,
     });
   }
+}
+
+// Update
+export function* updateProjectSaga({ payload }) {
+  try {
+    const ref = doc(db, "projects", payload.docId);
+    yield call(updateDoc, ref, {
+      ...payload,
+      updatedBy: updatedBy,
+    });
+    yield put({
+      type: GET_TODO_REQUEST,
+    });
+    yield put({
+      type: UPDATE_PROJECT_SUCCESS,
+    });
+    yield put({
+      type: TODO_MODAL_CLOSE,
+    });
+    swal("", "Updated successfully", "success");
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+    yield put({
+      type: UPDATE_PROJECT_FAILED,
+    });
+  }
+}
+
+// Delete
+export function* deleteProjectSaga({ payload }) {
+  try {
+    const ref = doc(db, "projects", payload.docId);
+    yield call(deleteDoc, ref);
+    yield put({
+      type: GET_PROJECT_REQUEST,
+    });
+    payload.navigate("/projects");
+  } catch ({ message }) {
+    swal("", `${message}`, "error");
+  }
+}
+
+// Delete
+export function* deleteAllProjectTodoSaga({ payload }) {
+  console.log("payload:", payload);
+  // try {
+  //   const ref = doc(db, "projects", payload.docId);
+  //   yield call(deleteDoc, ref);
+  //   yield put({
+  //     type: GET_PROJECT_REQUEST,
+  //   });
+  //   payload.navigate("/projects");
+  // } catch ({ message }) {
+  //   swal("", `${message}`, "error");
+  // }
 }

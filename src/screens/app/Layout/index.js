@@ -35,6 +35,7 @@ import {
 } from "../../../store/actions/modal";
 import { cancelEditTodo } from "../../../store/actions/todo";
 import { cancelEditNote } from "../../../store/actions/note";
+import { cancelEditProject } from "../../../store/actions/project";
 
 const drawerWidth = 300;
 
@@ -45,6 +46,7 @@ function Layout(props) {
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
   const NOTES = useSelector((state) => state.Note);
+  const PROJECTS = useSelector((state) => state.Project);
 
   const dispatch = useDispatch();
 
@@ -70,6 +72,9 @@ function Layout(props) {
     if (NOTES.isEditNote) {
       dispatch(cancelEditNote());
     }
+    if (PROJECTS.isEditProject) {
+      dispatch(cancelEditProject());
+    }
   };
 
   const handleDrawerToggle = () => {
@@ -77,7 +82,7 @@ function Layout(props) {
   };
 
   const Link = (props) => {
-    const { to, icon, title, count } = props;
+    const { to, icon, title, count, circleColor } = props;
     return (
       <NavLink
         to={to}
@@ -96,7 +101,7 @@ function Layout(props) {
           <span
             className="count"
             style={{
-              backgroundColor: title === "Notes" ? COLORS.primary : COLORS.red,
+              backgroundColor: circleColor || COLORS.red,
             }}
           >
             {count}
@@ -152,13 +157,15 @@ function Layout(props) {
           to={"projects"}
           title={"Projects"}
           icon={<AccountTreeIcon />}
-          count={0}
+          count={PROJECTS?.projects?.length || 0}
+          circleColor={COLORS.primary}
         />
         <Link
           to={"notes"}
           title={"Notes"}
           icon={<NotesIcon />}
           count={NOTES?.notes?.length || 0}
+          circleColor={COLORS.primary}
         />
       </Box>
       <Box sx={{ padding: "15px" }}>
@@ -208,7 +215,8 @@ function Layout(props) {
             {pathname === "/" && "Home"}
             {pathname === "/today" && "Today"}
             {pathname === "/week" && "This Week"}
-            {pathname === "/projects" && "Projects"}
+            {pathname === "/projects" && "All Projects"}
+            {pathname.includes("/projects/") && "Project"}
             {pathname === "/notes" && "Notes"}
           </Typography>
           <LogoutIcon

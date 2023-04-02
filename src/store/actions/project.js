@@ -17,6 +17,10 @@ export const DELETE_PROJECT_REQUEST = "DELETE_PROJECT_REQUEST";
 export const DELETE_PROJECT_SUCCESS = "DELETE_PROJECT_SUCCESS";
 export const DELETE_PROJECT_FAILED = "DELETE_PROJECT_FAILED";
 
+export const DELETE_ALL_PROJECT_TODO_REQUEST = "DELETE_ALL_PROJECT_ALL_REQUEST";
+export const DELETE_ALL_PROJECT_TODO_SUCCESS = "DELETE_ALL_PROJECT_ALL_SUCCESS";
+export const DELETE_ALL_PROJECT_TODO_FAILED = "DELETE_ALL_PROJECT_ALL_FAILED";
+
 // Create
 export const createProject = (payload) => {
   return {
@@ -51,6 +55,14 @@ export const cancelEditProject = () => {
 export const deleteProject = (payload) => {
   return {
     type: DELETE_PROJECT_REQUEST,
+    payload: payload,
+  };
+};
+
+// Delete
+export const deleteAllProjectTodo = (payload) => {
+  return {
+    type: DELETE_ALL_PROJECT_TODO_REQUEST,
     payload: payload,
   };
 };

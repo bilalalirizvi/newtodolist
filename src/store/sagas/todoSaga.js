@@ -13,6 +13,7 @@ import swal from "sweetalert";
 import { db } from "../../configs/firebase";
 import { sortDataByDate } from "../../utils";
 import { PRIORITY_MODAL_CLOSE, TODO_MODAL_CLOSE } from "../actions/modal";
+import { GET_PROJECT_SUCCESS } from "../actions/project";
 import {
   CREATE_TODO_SUCCESS,
   CREATE_TODO_FAILED,
@@ -72,6 +73,10 @@ export function* getTodoSaga() {
         ...doc.data(),
         docId: doc.id,
       });
+    });
+    yield put({
+      type: GET_PROJECT_SUCCESS,
+      payload: sortDataByDate(tempProject),
     });
     const todoRef = query(
       collection(db, "todos"),

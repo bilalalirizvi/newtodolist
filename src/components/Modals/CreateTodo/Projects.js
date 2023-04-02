@@ -1,19 +1,20 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createProject } from "../../../store/actions/project";
+import { createProject, updateProject } from "../../../store/actions/project";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import { Progress } from "../../../components";
 
 const Projects = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const PROJECT = useSelector((state) => state.Project);
-  // console.log("PROJECT:", PROJECT);
+  console.log("PROJECT:", PROJECT);
   const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
     title: Yup.string().required("Required"),
+    details: Yup.string().required("Required"),
   });
 
   const {
@@ -26,11 +27,18 @@ const Projects = () => {
     // resetForm,
   } = useFormik({
     initialValues: {
-      title: "",
+      title: PROJECT?.editProject?.title || "",
+      details: PROJECT?.editProject?.details || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createProject(values));
+      if (PROJECT.isEditProject) {
+        dispatch(
+          updateProject({ ...values, docId: PROJECT?.editProject?.docId })
+        );
+      } else {
+        dispatch(createProject(values));
+      }
     },
   });
   return (
@@ -40,19 +48,34 @@ const Projects = () => {
       sx={styles.box}
       onSubmit={handleSubmit}
     >
-      <TextField
-        sx={styles.focus}
-        size="small"
-        fullWidth
-        id="outlined-required"
-        label="Title"
-        placeholder="House Renovation"
-        name="title"
-        value={values.title}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={!!(errors.title && touched.title && errors.title)}
-      />
+      <Stack spacing={1.5}>
+        <TextField
+          sx={styles.focus}
+          size="small"
+          fullWidth
+          id="outlined-required"
+          label="Title"
+          placeholder="House Renovation"
+          name="title"
+          value={values.title}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={!!(errors.title && touched.title && errors.title)}
+        />
+        <TextField
+          sx={styles.focus}
+          size="small"
+          fullWidth
+          id="outlined-required"
+          label="Details"
+          placeholder="About Project"
+          name="details"
+          value={values.details}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={!!(errors.details && touched.details && errors.details)}
+        />
+      </Stack>
       <Button
         type="submit"
         variant="contained"
@@ -64,7 +87,13 @@ const Projects = () => {
           },
         }}
       >
-        {PROJECT?.loading ? <Progress /> : "Create Project"}
+        {PROJECT?.loading ? (
+          <Progress />
+        ) : PROJECT.isEditProject ? (
+          "Update Project"
+        ) : (
+          "Create Project"
+        )}
       </Button>
     </Box>
   );

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Box,
   Button,
@@ -11,22 +12,26 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
+// Third
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import dayjs from "dayjs";
-import { useEffect } from "react";
+
 import { createTodo, updateTodo } from "../../../store/actions/todo";
 import { getProjects } from "../../../store/actions/project";
-import Progress from "../../Progress";
+import { Progress } from "../../../components";
 
 const Todo = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
   const PROJECT = useSelector((state) => state.Project);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getProjects());
+    if (PROJECT.projects.length === 0) dispatch(getProjects());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const todoScheme = Yup.object().shape({
@@ -57,6 +62,8 @@ const Todo = () => {
     onSubmit: (values) => {
       const isCompleted = { isCompleted: false };
       const docId = { docId: TODOS.editTodo.docId };
+      const getType = PROJECT?.projects?.find((v) => v?.title === values?.type);
+      const type = { type: getType.docId };
       const obj = {
         ...values,
         date: dayjs(values?.date).toISOString(),
@@ -64,7 +71,7 @@ const Todo = () => {
       if (TODOS.isEditTodo) {
         dispatch(updateTodo({ ...obj, ...docId }));
       } else {
-        dispatch(createTodo({ ...obj, ...isCompleted }));
+        dispatch(createTodo({ ...obj, ...isCompleted, ...type }));
       }
     },
   });

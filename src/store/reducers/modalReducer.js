@@ -3,6 +3,8 @@ import {
   DETAILS_MODAL_OPEN,
   PRIORITY_MODAL_CLOSE,
   PRIORITY_MODAL_OPEN,
+  PROJECT_DETAILS_MODAL_CLOSE,
+  PROJECT_DETAILS_MODAL_OPEN,
   TODO_MODAL_CLOSE,
   TODO_MODAL_OPEN,
   UPDATE_ACTIVE_FORM,
@@ -12,8 +14,10 @@ const initialState = {
   todoModal: false,
   priorityModal: false,
   detailsModal: false,
+  projectModal: false,
   selectedPriority: {},
   selectedDetails: {},
+  selectedProject: {},
   activeForm: "todo",
 };
 
@@ -58,6 +62,20 @@ const modalReducer = (state = initialState, action) => {
         ...state,
         detailsModal: false,
         selectedDetails: {},
+      };
+    }
+    case PROJECT_DETAILS_MODAL_OPEN: {
+      return {
+        ...state,
+        projectModal: true,
+        selectedProject: payload,
+      };
+    }
+    case PROJECT_DETAILS_MODAL_CLOSE: {
+      return {
+        ...state,
+        projectModal: false,
+        selectedProject: {},
       };
     }
     case UPDATE_ACTIVE_FORM: {

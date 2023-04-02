@@ -32,7 +32,7 @@ const user = {
   updatedBy: new Date().toISOString(),
 };
 
-// Create Note
+// Create
 export function* createNoteSaga({ payload }) {
   try {
     const ref = collection(db, "notes");
@@ -55,7 +55,7 @@ export function* createNoteSaga({ payload }) {
   }
 }
 
-// Get Note
+// Get
 export function* getNoteSaga() {
   try {
     const q = query(collection(db, "notes"), where("userId", "==", userId));
@@ -79,7 +79,7 @@ export function* getNoteSaga() {
   }
 }
 
-// Update Note
+// Update
 export function* updateNoteSaga({ payload }) {
   try {
     const ref = doc(db, "notes", payload.docId);
@@ -105,7 +105,7 @@ export function* updateNoteSaga({ payload }) {
   }
 }
 
-// Delete Note
+// Delete
 export function* deleteNoteSaga({ payload }) {
   try {
     const ref = doc(db, "notes", payload);

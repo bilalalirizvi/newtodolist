@@ -7,6 +7,9 @@ export const PRIORITY_MODAL_CLOSE = "PRIORITY_MODAL_CLOSE";
 export const DETAILS_MODAL_OPEN = "DETAILS_MODAL_OPEN";
 export const DETAILS_MODAL_CLOSE = "DETAILS_MODAL_CLOSE";
 
+export const PROJECT_DETAILS_MODAL_OPEN = "PROJECT_DETAILS_MODAL_OPEN";
+export const PROJECT_DETAILS_MODAL_CLOSE = "PROJECT_DETAILS_MODAL_CLOSE";
+
 export const UPDATE_ACTIVE_FORM = "UPDATE_ACTIVE_FORM";
 
 export const todoModalOpen = () => {
@@ -44,6 +47,19 @@ export const detailsModalOpen = (payload) => {
 export const detailsModalClose = () => {
   return {
     type: DETAILS_MODAL_CLOSE,
+  };
+};
+
+export const projectDetailsModalOpen = (payload) => {
+  return {
+    type: PROJECT_DETAILS_MODAL_OPEN,
+    payload: payload,
+  };
+};
+
+export const projectDetailsModalClose = () => {
+  return {
+    type: PROJECT_DETAILS_MODAL_CLOSE,
   };
 };
 
