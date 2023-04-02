@@ -6,13 +6,19 @@ import { Box, Stack, Typography } from "@mui/material";
 // Third
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
+import swal from "sweetalert";
 
 // MUI Icon
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
-import swal from "sweetalert";
-import { deleteNote, editNote } from "../../store/actions/note";
+
+// Component
 import { activeForm, todoModalOpen } from "../../store/actions/modal";
+
+// Redux
+import { deleteNote, editNote } from "../../store/actions/note";
+
+import { firstLetterCapital, letterCase } from "../../utils";
 
 const NoteCard = ({ data }) => {
   const { title, details, createdBy, docId } = data;
@@ -62,10 +68,10 @@ const NoteCard = ({ data }) => {
         </Stack>
       </Stack>
       <Typography sx={{ ...styles.title, color: COLORS.black }}>
-        {title}
+        {letterCase(title)}
       </Typography>
       <Typography sx={{ ...styles.details, color: COLORS.black }}>
-        {details}
+        {firstLetterCapital(details)}
       </Typography>
     </Box>
   );

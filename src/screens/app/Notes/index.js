@@ -10,7 +10,8 @@ const Note = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getNote());
+    if (NOTES.notes.length === 0) dispatch(getNote());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

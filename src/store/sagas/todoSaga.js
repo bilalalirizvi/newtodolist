@@ -61,18 +61,35 @@ export function* createTodoSaga({ payload }) {
 // Get Todo
 export function* getTodoSaga() {
   try {
-    const q = query(collection(db, "todos"), where("userId", "==", userId));
-    const querySnapshot = yield call(getDocs, q);
-    const tempData = [];
-    querySnapshot.forEach((doc) => {
-      tempData.push({
+    const projectRef = query(
+      collection(db, "projects"),
+      where("userId", "==", userId)
+    );
+    const projects = yield call(getDocs, projectRef);
+    const tempProject = [];
+    projects.forEach((doc) => {
+      tempProject.push({
         ...doc.data(),
         docId: doc.id,
       });
     });
+    const todoRef = query(
+      collection(db, "todos"),
+      where("userId", "==", userId)
+    );
+    const todos = yield call(getDocs, todoRef);
+    const tempTodo = [];
+    todos.forEach((doc) => {
+      const type = tempProject.find((v) => v.docId === doc?.data()?.type);
+      tempTodo.push({
+        ...doc.data(),
+        docId: doc.id,
+        type: type?.title || doc.data()?.type,
+      });
+    });
     yield put({
       type: GET_TODO_SUCCESS,
-      payload: sortDataByDate(tempData),
+      payload: sortDataByDate(tempTodo),
     });
   } catch ({ message }) {
     swal("", `${message}`, "error");

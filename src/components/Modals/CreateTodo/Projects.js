@@ -9,7 +9,7 @@ import { Progress } from "../../../components";
 const Projects = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const PROJECT = useSelector((state) => state.Project);
-  console.log("PROJECT:", PROJECT);
+  // console.log("PROJECT:", PROJECT);
   const dispatch = useDispatch();
 
   const schema = Yup.object().shape({

@@ -93,12 +93,24 @@ function Layout(props) {
           <Typography sx={{ marginTop: "2px" }}>{title}</Typography>
         </Box>
         {count !== 0 && (
-          <span className="count" style={{ backgroundColor: COLORS.primary }}>
+          <span
+            className="count"
+            style={{
+              backgroundColor: title === "Notes" ? COLORS.primary : COLORS.red,
+            }}
+          >
             {count}
           </span>
         )}
       </NavLink>
     );
+  };
+
+  const inCompleteCount = (data) => {
+    const count = data.filter((v) => {
+      return v?.isCompleted === false;
+    });
+    return count.length;
   };
 
   const drawer = (
@@ -122,19 +134,19 @@ function Layout(props) {
           to={"/"}
           title={"Home"}
           icon={<DashboardIcon />}
-          count={TODOS?.todos?.length || 0}
+          count={inCompleteCount(TODOS?.todos)}
         />
         <Link
           to={"today"}
           title={"Today"}
           icon={<TodayIcon />}
-          count={TODOS?.today?.length || 0}
+          count={inCompleteCount(TODOS?.today)}
         />
         <Link
           to={"week"}
           title={"This Week"}
           icon={<ViewWeekIcon />}
-          count={TODOS?.week?.length || 0}
+          count={inCompleteCount(TODOS?.week)}
         />
         <Link
           to={"projects"}

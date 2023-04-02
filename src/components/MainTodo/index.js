@@ -5,15 +5,19 @@ import { Box } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { DetailsModal, PriorityStatus } from "../../components/Modals";
 import { getTodos } from "../../store/actions/todo";
+import { getNote } from "../../store/actions/note";
 
 const MainTodo = ({ name, projectShow }) => {
   const TODOS = useSelector((state) => state.Todo);
+  const NOTES = useSelector((state) => state.Note);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTodos());
-  }, [dispatch]);
+    if (TODOS.todos.length === 0) dispatch(getTodos());
+    if (NOTES.notes.length === 0) dispatch(getNote());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
