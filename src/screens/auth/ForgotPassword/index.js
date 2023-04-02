@@ -29,9 +29,7 @@ const ForgotPassword = () => {
       password: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      // console.log("values", values);
-    },
+    onSubmit: (values) => {},
   });
   return (
     <Box className="authContainer">

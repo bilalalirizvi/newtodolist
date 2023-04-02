@@ -9,7 +9,6 @@ import { Progress } from "../../../components";
 const Projects = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const PROJECT = useSelector((state) => state.Project);
-  console.log("PROJECT:", PROJECT);
   const dispatch = useDispatch();
 
   const schema = Yup.object().shape({
@@ -32,7 +31,6 @@ const Projects = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log("values:", values);
       if (PROJECT.isEditProject) {
         dispatch(
           updateProject({ ...values, docId: PROJECT?.editProject?.docId })

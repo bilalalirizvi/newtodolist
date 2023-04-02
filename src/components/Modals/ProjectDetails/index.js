@@ -9,7 +9,6 @@ const ProjectDetails = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const MODAL = useSelector((state) => state.Modal);
   const { title, details, createdBy } = MODAL.selectedProject;
-  console.log("MODAL.selectedProject", MODAL.selectedProject);
 
   const dispatch = useDispatch();
 
