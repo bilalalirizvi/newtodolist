@@ -7,10 +7,8 @@ import {
   query,
   updateDoc,
   where,
-  batch,
   writeBatch,
 } from "firebase/firestore";
-import { Navigate } from "react-router-dom";
 import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
 import { db } from "../../configs/firebase";

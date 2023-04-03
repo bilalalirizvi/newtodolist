@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import PropTypes from "prop-types";
 import {
@@ -33,8 +33,8 @@ import {
   todoModalClose,
   todoModalOpen,
 } from "../../../store/actions/modal";
-import { cancelEditTodo, getTodos } from "../../../store/actions/todo";
-import { cancelEditNote, getNote } from "../../../store/actions/note";
+import { cancelEditTodo } from "../../../store/actions/todo";
+import { cancelEditNote } from "../../../store/actions/note";
 import { cancelEditProject } from "../../../store/actions/project";
 
 const drawerWidth = 300;
