@@ -57,6 +57,7 @@ export function* createNoteSaga({ payload }) {
 
 // Get
 export function* getNoteSaga() {
+  const userId = localStorage.getItem("userId");
   try {
     const q = query(collection(db, "notes"), where("userId", "==", userId));
     const querySnapshot = yield call(getDocs, q);

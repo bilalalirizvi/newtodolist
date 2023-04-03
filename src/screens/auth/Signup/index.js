@@ -42,7 +42,7 @@ const Signup = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createUser(values));
+      dispatch(createUser({ ...values, navigate }));
     },
   });
   return (

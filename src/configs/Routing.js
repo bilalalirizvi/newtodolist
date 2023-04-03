@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Layout, Notes, AllProjects, Today, Week } from "../screens/app";
 import Project from "../screens/app/AllProjects/Project";
 import { Login, Signup, ForgotPassword } from "../screens/auth";
-import AppRoutes from "./ProtectedRoute/AppRoutes";
+import { AppRoutes, AuthRoutes } from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -42,17 +42,17 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <AppRoutes>
+      <AuthRoutes>
         <Login />
-      </AppRoutes>
+      </AuthRoutes>
     ),
   },
   {
     path: "/signup",
     element: (
-      <AppRoutes>
+      <AuthRoutes>
         <Signup />
-      </AppRoutes>
+      </AuthRoutes>
     ),
   },
   {

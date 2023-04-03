@@ -20,24 +20,17 @@ const Login = () => {
       .required("Required"),
   });
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    errors,
-    touched,
-    resetForm,
-  } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: schema,
-    onSubmit: (values) => {
-      dispatch(loginUser(values));
-    },
-  });
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: schema,
+      onSubmit: (values) => {
+        dispatch(loginUser({ ...values, navigate }));
+      },
+    });
   return (
     <Box className="authContainer">
       <img src={logo} alt="Logo" width={200} />

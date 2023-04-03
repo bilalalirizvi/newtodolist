@@ -15,6 +15,7 @@ const MainTodo = ({ name, projectShow }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(localStorage.getItem("userId"));
     if (TODOS.todos.length === 0) dispatch(getTodos());
     if (NOTES.notes.length === 0) dispatch(getNote());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,13 +29,13 @@ const MainTodo = ({ name, projectShow }) => {
         <>
           {TODOS.todos.length === 0 ? (
             <Empty
-              title={"Note"}
-              description={"Create a new Note."}
+              title={"Todo"}
+              description={"Create a new Todo."}
               onClick={() => {
                 dispatch(todoModalOpen());
                 dispatch(activeForm("todo"));
               }}
-              buttonText={"Create Project"}
+              buttonText={"Create Todo"}
             />
           ) : (
             <>

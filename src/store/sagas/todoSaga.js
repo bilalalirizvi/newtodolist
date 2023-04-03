@@ -61,6 +61,7 @@ export function* createTodoSaga({ payload }) {
 
 // Get Todo
 export function* getTodoSaga() {
+  const userId = localStorage.getItem("userId");
   try {
     const projectRef = query(
       collection(db, "projects"),

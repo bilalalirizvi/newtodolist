@@ -48,7 +48,7 @@ const DetailsModal = () => {
             <Typography style={styles.textHeading}>Priority:</Typography>
             <Typography style={styles.textHeading}>Details:</Typography>
           </Stack>
-          <Stack>
+          <Stack sx={{ flex: 1 }}>
             <Typography>{letterCase(project)}</Typography>
             <Typography>
               {moment(createdBy).format("DD-MM-YYYY | hh:mm A")}

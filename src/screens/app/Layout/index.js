@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import PropTypes from "prop-types";
 import {
@@ -11,7 +11,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { CreateTodo } from "../../../components/Modals";
 import { logout } from "../../../store/actions/auth";
@@ -33,8 +33,8 @@ import {
   todoModalClose,
   todoModalOpen,
 } from "../../../store/actions/modal";
-import { cancelEditTodo } from "../../../store/actions/todo";
-import { cancelEditNote } from "../../../store/actions/note";
+import { cancelEditTodo, getTodos } from "../../../store/actions/todo";
+import { cancelEditNote, getNote } from "../../../store/actions/note";
 import { cancelEditProject } from "../../../store/actions/project";
 
 const drawerWidth = 300;
@@ -49,6 +49,7 @@ function Layout(props) {
   const PROJECTS = useSelector((state) => state.Project);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     dispatch(todoModalOpen(true));
@@ -221,7 +222,7 @@ function Layout(props) {
           </Typography>
           <LogoutIcon
             sx={{ color: COLORS.black, cursor: "pointer" }}
-            onClick={() => dispatch(logout())}
+            onClick={() => dispatch(logout({ navigate: navigate }))}
           />
         </Toolbar>
       </AppBar>

@@ -64,6 +64,7 @@ export function* createProjectSaga({ payload }) {
 
 // Get
 export function* getProjectSaga() {
+  const userId = localStorage.getItem("userId");
   try {
     const q = query(collection(db, "projects"), where("userId", "==", userId));
     const querySnapshot = yield call(getDocs, q);

@@ -16,7 +16,7 @@ import {
 } from "../actions/auth";
 
 export function* createNewUserSaga(action) {
-  const { userName, email, password } = action.payload;
+  const { userName, email, password, navigate } = action.payload;
   try {
     const user = yield call(
       createUserWithEmailAndPassword,
@@ -36,6 +36,7 @@ export function* createNewUserSaga(action) {
       type: CREATE_USER_SUCCESS,
     });
     swal("", "Account created successfully!", "success");
+    navigate("/");
   } catch ({ code, message }) {
     yield put({
       type: CREATE_USER_FAILED,
@@ -45,7 +46,7 @@ export function* createNewUserSaga(action) {
 }
 
 export function* userLoginSaga(action) {
-  const { email, password } = action.payload;
+  const { email, password, navigate } = action.payload;
   try {
     const user = yield call(signInWithEmailAndPassword, auth, email, password);
     localStorage.setItem("userId", user.user.uid);
@@ -54,6 +55,7 @@ export function* userLoginSaga(action) {
       type: USER_LOGIN_SUCCESS,
     });
     swal("", "Account login successfully!", "success");
+    navigate("/");
   } catch ({ code, message }) {
     yield put({
       type: USER_LOGIN_FAILED,
@@ -62,11 +64,13 @@ export function* userLoginSaga(action) {
   }
 }
 
-export function* logoutSaga() {
+export function* logoutSaga(action) {
+  const { navigate } = action.payload;
   try {
     yield call(signOut, auth);
     localStorage.clear();
     swal("", "Logout successfully!", "success");
+    navigate("/login");
   } catch ({ code, message }) {
     swal("", `${message}`, "error");
   }

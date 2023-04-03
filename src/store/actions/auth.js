@@ -22,8 +22,9 @@ export const loginUser = (payload) => {
   };
 };
 
-export const logout = () => {
+export const logout = (payload) => {
   return {
     type: LOGOUT_REQUEST,
+    payload: payload,
   };
 };
