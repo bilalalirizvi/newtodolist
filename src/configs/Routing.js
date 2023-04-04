@@ -83,14 +83,30 @@ const router = createBrowserRouter([
 const Routing = () => {
   const dispatch = useDispatch();
 
+  const isPhoto = async (user) => {
+    let response = "";
+    try {
+      // Get Image from store
+      const pathReference = ref(storage, `images/${user.uid}`);
+      const url = await getDownloadURL(pathReference);
+      response = url;
+    } catch ({ message }) {
+      if (message.includes("does not exist")) response = "";
+    }
+    return response;
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         (async () => {
           try {
             // Get Image from store
-            const pathReference = ref(storage, `images/${user.uid}`);
-            const url = await getDownloadURL(pathReference);
+            // const pathReference = ref(storage, `images/${user.uid}`);
+            // const url = await getDownloadURL(pathReference);
+
+            const url = await isPhoto(user);
+            console.log("url:", url);
 
             // Get user for firstore
             const q = query(
@@ -100,7 +116,11 @@ const Routing = () => {
             const querySnapshot = await getDocs(q);
             let _user = {};
             querySnapshot.forEach((doc) => {
-              _user = { ...doc.data(), docId: doc.id, photoUrl: url };
+              _user = {
+                ...doc.data(),
+                docId: doc.id,
+                photoUrl: url,
+              };
             });
             localStorage.setItem("userId", _user.uid);
             localStorage.setItem("name", _user.displayName);
