@@ -22,21 +22,14 @@ import {
   UPDATE_NOTE_SUCCESS,
   UPDATE_NOTE_FAILED,
 } from "../actions/note";
-
-const userId = localStorage.getItem("userId");
-const updatedBy = new Date().toISOString();
-
-const user = {
-  userId,
-  createdBy: new Date().toISOString(),
-  updatedBy: new Date().toISOString(),
-};
+import { info } from "../../constants/others";
 
 // Create
 export function* createNoteSaga({ payload }) {
+  const { userId, updatedBy, createdBy } = info();
   try {
     const ref = collection(db, "notes");
-    yield call(addDoc, ref, { ...payload, ...user });
+    yield call(addDoc, ref, { ...payload, userId, updatedBy, createdBy });
     yield put({
       type: CREATE_NOTE_SUCCESS,
     });
@@ -57,7 +50,7 @@ export function* createNoteSaga({ payload }) {
 
 // Get
 export function* getNoteSaga() {
-  const userId = localStorage.getItem("userId");
+  const { userId } = info();
   try {
     const q = query(collection(db, "notes"), where("userId", "==", userId));
     const querySnapshot = yield call(getDocs, q);
@@ -82,6 +75,7 @@ export function* getNoteSaga() {
 
 // Update
 export function* updateNoteSaga({ payload }) {
+  const { updatedBy } = info();
   try {
     const ref = doc(db, "notes", payload.docId);
     yield call(updateDoc, ref, {

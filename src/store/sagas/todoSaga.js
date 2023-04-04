@@ -26,21 +26,15 @@ import {
   UPDATE_PRIORITY_FAILED,
   IS_COMPLETED_FAILED,
 } from "../actions/todo";
-
-const userId = localStorage.getItem("userId");
-const updatedBy = new Date().toISOString();
-
-const user = {
-  userId,
-  createdBy: new Date().toISOString(),
-  updatedBy: new Date().toISOString(),
-};
+import { info } from "../../constants/others";
 
 // Create Todo
 export function* createTodoSaga({ payload }) {
+  const { userId, updatedBy, createdBy } = info();
+
   try {
     const ref = collection(db, "todos");
-    yield call(addDoc, ref, { ...payload, ...user });
+    yield call(addDoc, ref, { ...payload, userId, updatedBy, createdBy });
     yield put({
       type: GET_TODO_REQUEST,
     });
@@ -61,7 +55,7 @@ export function* createTodoSaga({ payload }) {
 
 // Get Todo
 export function* getTodoSaga() {
-  const userId = localStorage.getItem("userId");
+  const { userId } = info();
   try {
     const projectRef = query(
       collection(db, "projects"),
@@ -107,6 +101,8 @@ export function* getTodoSaga() {
 
 // Update Todo
 export function* updateTodoSaga({ payload }) {
+  const { updatedBy } = info();
+
   try {
     const ref = doc(db, "todos", payload.docId);
     delete payload["docId"];
@@ -149,6 +145,8 @@ export function* deleteTodoSaga({ payload }) {
 
 // Update Priority
 export function* updatePrioritySaga({ payload }) {
+  const { updatedBy } = info();
+
   try {
     const ref = doc(db, "todos", payload.docId);
     yield call(updateDoc, ref, {
@@ -175,6 +173,8 @@ export function* updatePrioritySaga({ payload }) {
 
 // Update IsCompeleted
 export function* updateIsCompletedSaga({ payload }) {
+  const { updatedBy } = info();
+
   try {
     const ref = doc(db, "todos", payload.docId);
     yield call(updateDoc, ref, {

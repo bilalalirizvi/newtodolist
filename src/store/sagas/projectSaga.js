@@ -24,23 +24,18 @@ import {
   GET_PROJECT_REQUEST,
 } from "../actions/project";
 import { GET_TODO_REQUEST } from "../actions/todo";
-
-const userId = localStorage.getItem("userId");
-const updatedBy = new Date().toISOString();
-
-const user = {
-  userId,
-  createdBy: new Date().toISOString(),
-  updatedBy: new Date().toISOString(),
-};
+import { info } from "../../constants/others";
 
 // Create
 export function* createProjectSaga({ payload }) {
+  const { userId, updatedBy, createdBy } = info();
   try {
     const ref = collection(db, "projects");
     yield call(addDoc, ref, {
       ...payload,
-      ...user,
+      userId,
+      updatedBy,
+      createdBy,
     });
     yield put({
       type: CREATE_PROJECT_SUCCESS,
@@ -62,7 +57,7 @@ export function* createProjectSaga({ payload }) {
 
 // Get
 export function* getProjectSaga() {
-  const userId = localStorage.getItem("userId");
+  const { userId } = info();
   try {
     const q = query(collection(db, "projects"), where("userId", "==", userId));
     const querySnapshot = yield call(getDocs, q);
@@ -87,6 +82,8 @@ export function* getProjectSaga() {
 
 // Update
 export function* updateProjectSaga({ payload }) {
+  const { updatedBy } = info();
+
   try {
     const ref = doc(db, "projects", payload.docId);
     yield call(updateDoc, ref, {
