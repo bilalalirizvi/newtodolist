@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Loader, TodoCard } from "../../../components";
+import { Empty, Loader, TodoCard } from "../../../components";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { DetailsModal, PriorityStatus } from "../../../components/Modals";
@@ -11,7 +11,7 @@ import {
   deleteAllProjectTodo,
   deleteProject,
 } from "../../../store/actions/project";
-import { todoModalOpen } from "../../../store/actions/modal";
+import { activeForm, todoModalOpen } from "../../../store/actions/modal";
 
 const Project = () => {
   const { title, projectId } = useParams();
@@ -75,30 +75,6 @@ const Project = () => {
     });
   };
 
-  // Component
-  const EmptyProject = () => {
-    return (
-      <Stack alignItems={"center"} spacing={2}>
-        <Typography variant="h6">Empty Project!</Typography>
-        <Typography variant="h5">
-          Create a new to-do item or delete project.
-        </Typography>
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant="outlined"
-            color="success"
-            onClick={() => dispatch(todoModalOpen())}
-          >
-            Add Todo
-          </Button>
-          <Button variant="outlined" color="error" onClick={deleteProjectFn}>
-            Delete Project
-          </Button>
-        </Stack>
-      </Stack>
-    );
-  };
-
   const DeleteProject = () => {
     return (
       <Stack mt={5} spacing={0}>
@@ -131,7 +107,17 @@ const Project = () => {
             {title}
           </Typography>
           {filtered.length === 0 ? (
-            <EmptyProject />
+            <Empty
+              title={"Todo"}
+              description={"Create a new Todo."}
+              onClick={() => {
+                dispatch(todoModalOpen());
+                dispatch(activeForm("todo"));
+              }}
+              buttonText={"Create Todo"}
+              isDelete={true}
+              handleDelete={deleteProjectFn}
+            />
           ) : (
             <>
               <Box

@@ -4,5 +4,6 @@ import Today from "./Today";
 import Week from "./Week";
 import AllProjects from "./AllProjects";
 import Notes from "./Notes";
+import Settings from "./Settings";
 
-export { Layout, Home, Today, Week, AllProjects, Notes };
+export { Layout, Home, Today, Week, AllProjects, Notes, Settings };

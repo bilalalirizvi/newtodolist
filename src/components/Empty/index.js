@@ -1,7 +1,14 @@
 import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
 
-const Empty = ({ title, description, onClick, buttonText }) => {
+const Empty = ({
+  title,
+  description,
+  onClick,
+  buttonText,
+  isDelete,
+  handleDelete,
+}) => {
   return (
     <Stack alignItems={"center"} spacing={2}>
       <Typography variant="h6">Empty {title}!</Typography>
@@ -10,6 +17,12 @@ const Empty = ({ title, description, onClick, buttonText }) => {
         <Button variant="outlined" color="success" onClick={onClick}>
           {buttonText}
         </Button>
+
+        {isDelete && (
+          <Button variant="outlined" color="error" onClick={handleDelete}>
+            Delete Project
+          </Button>
+        )}
       </Stack>
     </Stack>
   );

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import PropTypes from "prop-types";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   CssBaseline,
   Drawer,
   IconButton,
+  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -28,6 +30,8 @@ import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
 import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+
 import {
   activeForm,
   todoModalClose,
@@ -36,6 +40,9 @@ import {
 import { cancelEditTodo } from "../../../store/actions/todo";
 import { cancelEditNote } from "../../../store/actions/note";
 import { cancelEditProject } from "../../../store/actions/project";
+import moment from "moment";
+import { letterCase } from "../../../utils";
+import { info } from "../../../constants/others";
 
 const drawerWidth = 300;
 
@@ -43,13 +50,25 @@ function Layout(props) {
   const { window } = props;
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const AUTH = useSelector((state) => state.Auth);
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
   const NOTES = useSelector((state) => state.Note);
   const PROJECTS = useSelector((state) => state.Project);
+  const [time, setTime] = useState(
+    moment(new Date()).format("DD-MM-YYYY | hh:mm A")
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userName } = info();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(moment(new Date()).format("DD-MM-YYYY | hh:mm A"));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleOpen = () => {
     dispatch(todoModalOpen(true));
@@ -168,6 +187,12 @@ function Layout(props) {
           count={NOTES?.notes?.length || 0}
           circleColor={COLORS.primary}
         />
+        <Link
+          to={"settings"}
+          title={"Settings"}
+          icon={<SettingsIcon />}
+          count={0}
+        />
       </Box>
       <Box sx={{ padding: "15px" }}>
         <Button variant="contained" className="addBtn" onClick={handleOpen}>
@@ -181,7 +206,7 @@ function Layout(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", height: "100vh" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -219,11 +244,32 @@ function Layout(props) {
             {pathname === "/projects" && "All Projects"}
             {pathname.includes("/projects/") && "Project"}
             {pathname === "/notes" && "Notes"}
+            {pathname === "/settings" && "Settings"}
           </Typography>
-          <LogoutIcon
-            sx={{ color: COLORS.black, cursor: "pointer" }}
-            onClick={() => dispatch(logout({ navigate: navigate }))}
-          />
+          <Stack direction="row" alignItems={"center"}>
+            <LogoutIcon
+              sx={{ color: COLORS.gray, cursor: "pointer" }}
+              onClick={() => dispatch(logout({ navigate: navigate }))}
+            />
+            <Box component={"span"} className="verticalLine"></Box>
+            <Stack direction="row" alignItems={"center"} spacing={1}>
+              <Avatar
+                src={AUTH?.user?.photoUrl}
+                alt={AUTH?.user?.displayName}
+                sx={{ color: "black" }}
+              />
+              <Stack>
+                <Typography
+                  sx={{ color: COLORS.black, fontSize: "14px", lineHeight: 1 }}
+                >
+                  {letterCase(userName)}
+                </Typography>
+                <Typography sx={{ color: COLORS.gray, fontSize: "11px" }}>
+                  {time}
+                </Typography>
+              </Stack>
+            </Stack>
+          </Stack>
         </Toolbar>
       </AppBar>
       <Box

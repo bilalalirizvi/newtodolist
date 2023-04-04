@@ -8,6 +8,9 @@ export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 
+export const GET_CURRENT_USER_SUCCESS = "GET_CURRENT_USER_SUCCESS";
+export const GET_CURRENT_USER_FAILED = "GET_CURRENT_USER_FAILED";
+
 export const createUser = (payload) => {
   return {
     type: CREATE_USER_REQUEST,
@@ -26,5 +29,18 @@ export const logout = (payload) => {
   return {
     type: LOGOUT_REQUEST,
     payload: payload,
+  };
+};
+
+export const currentUserSuccess = (payload) => {
+  return {
+    type: GET_CURRENT_USER_SUCCESS,
+    payload: payload,
+  };
+};
+
+export const currentUserFailed = () => {
+  return {
+    type: GET_CURRENT_USER_FAILED,
   };
 };

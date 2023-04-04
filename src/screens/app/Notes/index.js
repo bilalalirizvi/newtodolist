@@ -29,7 +29,7 @@ const Note = () => {
                 dispatch(todoModalOpen());
                 dispatch(activeForm("note"));
               }}
-              buttonText={"Create Project"}
+              buttonText={"Create Note"}
             />
           ) : (
             <Box style={styles.noteContainer}>

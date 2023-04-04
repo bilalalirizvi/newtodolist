@@ -38,3 +38,10 @@
   background-color: #2a2a2c !important;
   font-weight: bold !important;
 }
+
+.verticalLine {
+  height: 40px;
+  width: 2px;
+  background-color: #e6e6e6;
+  margin-inline: 20px;
+}

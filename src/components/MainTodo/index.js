@@ -15,7 +15,6 @@ const MainTodo = ({ name, projectShow }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(localStorage.getItem("userId"));
     if (TODOS.todos.length === 0) dispatch(getTodos());
     if (NOTES.notes.length === 0) dispatch(getNote());
     // eslint-disable-next-line react-hooks/exhaustive-deps

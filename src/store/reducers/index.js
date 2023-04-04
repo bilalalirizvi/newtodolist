@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
+import { LOGOUT_REQUEST } from "../actions/auth";
 import themeReducer from "./themeReducer";
 import authReducer from "./authReducer";
 import todoReducer from "./todoReducer";
 import modalReducer from "./modalReducer";
 import noteReducer from "./noteReducer";
 import projectReducer from "./projectReducer";
-import { LOGOUT_REQUEST } from "../actions/auth";
+import settingReducer from "./settingReducer";
 
 // export default combineReducers({
 //   Theme: themeReducer,
@@ -23,6 +24,7 @@ const appReducer = combineReducers({
   Modal: modalReducer,
   Note: noteReducer,
   Project: projectReducer,
+  Setting: settingReducer,
 });
 
 const rootReducer = (state, action) => {
