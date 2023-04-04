@@ -262,7 +262,7 @@ function Layout(props) {
                 <Typography
                   sx={{ color: COLORS.black, fontSize: "14px", lineHeight: 1 }}
                 >
-                  {letterCase(userName)}
+                  {letterCase(AUTH?.user?.displayName) || "User"}
                 </Typography>
                 <Typography sx={{ color: COLORS.gray, fontSize: "11px" }}>
                   {time}

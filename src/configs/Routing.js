@@ -102,6 +102,10 @@ const Routing = () => {
             querySnapshot.forEach((doc) => {
               _user = { ...doc.data(), docId: doc.id, photoUrl: url };
             });
+            localStorage.setItem("userId", _user.uid);
+            localStorage.setItem("name", _user.displayName);
+            localStorage.setItem("docId", _user.docId);
+            localStorage.setItem("email", _user.email);
             dispatch(currentUserSuccess(_user));
           } catch ({ message }) {
             if (message.includes("does not exist"))

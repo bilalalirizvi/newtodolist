@@ -8,7 +8,10 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
 } from "../actions/auth";
-import { UPDATE_PICTURE_URL_REDUX } from "../actions/setting";
+import {
+  UPDATE_NAME_REDUX,
+  UPDATE_PICTURE_URL_REDUX,
+} from "../actions/setting";
 
 const initialState = {
   loading: false,
@@ -72,6 +75,13 @@ const authReducer = (state = initialState, action) => {
         user: { ...state.user, photoUrl: payload },
       };
     }
+    case UPDATE_NAME_REDUX: {
+      return {
+        ...state,
+        user: { ...state.user, displayName: payload },
+      };
+    }
+
     default:
       return state;
   }

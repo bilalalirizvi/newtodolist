@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Tabs, Tab, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ProfilePicture from "./ProfilePicture";
-// import DisplayName from "./DisplayName";
+import DisplayName from "./DisplayName";
 // import EmailAddress from "./EmailAddress";
 // import Password from "./Password";
 import { useSelector } from "react-redux";
@@ -102,7 +102,7 @@ const Settings = () => {
         <ProfilePicture />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {/* <DisplayName /> */}
+        <DisplayName />
       </TabPanel>
       <TabPanel value={value} index={2}>
         {/* <EmailAddress /> */}

@@ -10,6 +10,7 @@ export const light = {
   red: "#EA3628",
   icon: "#A9A9A9",
   gray: "gray",
+  label: "rgb(100,100,100)",
 };
 
 export const dark = {
@@ -24,4 +25,5 @@ export const dark = {
   red: "#EA3628",
   icon: "#A9A9A9",
   gray: "gray",
+  label: "rgb(100,100,100)",
 };

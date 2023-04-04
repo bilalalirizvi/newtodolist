@@ -9,6 +9,7 @@ import NoteCard from "./NoteCard";
 import ProjectCard from "./ProjectCard";
 import Empty from "./Empty";
 import MyButton from "./MyButton";
+import TextFieldLabel from "./TextFieldLabel";
 
 export {
   MainTodo,
@@ -22,4 +23,5 @@ export {
   ProjectCard,
   Empty,
   MyButton,
+  TextFieldLabel,
 };

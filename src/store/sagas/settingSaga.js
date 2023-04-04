@@ -44,7 +44,10 @@ export function* updatePictureSaga(action) {
 }
 
 export function* updateDisplayNameSaga(action) {
-  const { docId, name } = action.payload;
+  const { name } = action.payload;
+  console.log("name:", name);
+  const { docId } = info();
+  console.log("docId:", docId);
   try {
     const reference = doc(db, "users", docId);
     yield call(updateDoc, reference, { displayName: name });
