@@ -45,9 +45,7 @@ export function* updatePictureSaga(action) {
 
 export function* updateDisplayNameSaga(action) {
   const { name } = action.payload;
-  console.log("name:", name);
   const { docId } = info();
-  console.log("docId:", docId);
   try {
     const reference = doc(db, "users", docId);
     yield call(updateDoc, reference, { displayName: name });
@@ -70,7 +68,9 @@ export function* updateDisplayNameSaga(action) {
 }
 
 export function* updateEmailSaga(action) {
-  const { docId, email } = action.payload;
+  const { email } = action.payload;
+  const { docId } = info();
+
   try {
     yield call(updateEmail, auth.currentUser, email);
     const docRef = doc(db, "users", docId);

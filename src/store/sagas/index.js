@@ -48,10 +48,17 @@ import {
   updateProjectSaga,
 } from "./projectSaga";
 import {
+  UPDATE_EMAIL_REQUEST,
   UPDATE_NAME_REQUEST,
+  UPDATE_PASSWORD_REQUEST,
   UPDATE_PICTURE_REQUEST,
 } from "../actions/setting";
-import { updateDisplayNameSaga, updatePictureSaga } from "./settingSaga";
+import {
+  updateDisplayNameSaga,
+  updateEmailSaga,
+  updatePasswordSaga,
+  updatePictureSaga,
+} from "./settingSaga";
 
 export default function* rootSagas() {
   // Auth
@@ -89,4 +96,6 @@ export default function* rootSagas() {
   // Setting
   yield all([takeEvery(UPDATE_PICTURE_REQUEST, updatePictureSaga)]);
   yield all([takeEvery(UPDATE_NAME_REQUEST, updateDisplayNameSaga)]);
+  yield all([takeEvery(UPDATE_EMAIL_REQUEST, updateEmailSaga)]);
+  yield all([takeEvery(UPDATE_PASSWORD_REQUEST, updatePasswordSaga)]);
 }

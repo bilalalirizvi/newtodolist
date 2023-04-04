@@ -4,8 +4,8 @@ import { Tabs, Tab, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import ProfilePicture from "./ProfilePicture";
 import DisplayName from "./DisplayName";
-// import EmailAddress from "./EmailAddress";
-// import Password from "./Password";
+import EmailAddress from "./EmailAddress";
+import Password from "./Password";
 import { useSelector } from "react-redux";
 
 const StyledTab = styled(Tab)({
@@ -105,10 +105,10 @@ const Settings = () => {
         <DisplayName />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {/* <EmailAddress /> */}
+        <EmailAddress />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        {/* <Password /> */}
+        <Password />
       </TabPanel>
     </Box>
   );

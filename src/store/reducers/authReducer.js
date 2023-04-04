@@ -9,6 +9,7 @@ import {
   USER_LOGIN_SUCCESS,
 } from "../actions/auth";
 import {
+  UPDATE_EMAIL_REDUX,
   UPDATE_NAME_REDUX,
   UPDATE_PICTURE_URL_REDUX,
 } from "../actions/setting";
@@ -81,7 +82,12 @@ const authReducer = (state = initialState, action) => {
         user: { ...state.user, displayName: payload },
       };
     }
-
+    case UPDATE_EMAIL_REDUX: {
+      return {
+        ...state,
+        user: { ...state.user, email: payload },
+      };
+    }
     default:
       return state;
   }
