@@ -42,7 +42,6 @@ import { cancelEditNote } from "../../../store/actions/note";
 import { cancelEditProject } from "../../../store/actions/project";
 import moment from "moment";
 import { letterCase } from "../../../utils";
-import { info } from "../../../constants/others";
 
 const drawerWidth = 300;
 
@@ -61,7 +60,6 @@ function Layout(props) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userName } = info();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -107,6 +105,7 @@ function Layout(props) {
       <NavLink
         to={to}
         className={({ isActive }) => (isActive ? "navlinkActive" : "navlink")}
+        onClick={() => setMobileOpen(false)}
       >
         <Box
           component={"span"}
@@ -211,7 +210,7 @@ function Layout(props) {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
           boxShadow: "none",
           borderBottom: "1px solid rgb(200,200,200)",
@@ -228,7 +227,7 @@ function Layout(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" }, color: COLORS.black }}
+            sx={{ mr: 2, display: { md: "none" }, color: COLORS.black }}
           >
             <MenuIcon />
           </IconButton>
@@ -251,8 +250,17 @@ function Layout(props) {
               sx={{ color: COLORS.gray, cursor: "pointer" }}
               onClick={() => dispatch(logout({ navigate: navigate }))}
             />
-            <Box component={"span"} className="verticalLine"></Box>
-            <Stack direction="row" alignItems={"center"} spacing={1}>
+            <Box
+              component={"span"}
+              className="verticalLine"
+              sx={{ display: { xs: "none", sm: "flex" } }}
+            ></Box>
+            <Stack
+              direction="row"
+              alignItems={"center"}
+              spacing={1}
+              sx={{ display: { xs: "none", sm: "flex" } }}
+            >
               <Avatar
                 src={AUTH?.user?.photoUrl}
                 alt={AUTH?.user?.displayName}
@@ -275,11 +283,12 @@ function Layout(props) {
       <Box
         component="nav"
         sx={{
-          width: { sm: drawerWidth },
+          width: { md: drawerWidth },
           flexShrink: { sm: 0 },
         }}
         aria-label="mailbox folders"
       >
+        {/* Mobile */}
         <Drawer
           container={container}
           variant="temporary"
@@ -289,7 +298,7 @@ function Layout(props) {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", sm: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -299,10 +308,11 @@ function Layout(props) {
         >
           {drawer}
         </Drawer>
+        {/* Big Screen */}
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", sm: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -318,8 +328,8 @@ function Layout(props) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 5,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          p: { xs: 2, sm: 5 },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />

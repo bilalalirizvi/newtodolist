@@ -44,6 +44,7 @@ const MainTodo = ({ name, projectShow }) => {
                   flexDirection: "column",
                   gap: "10px",
                   overflowY: "auto",
+                  paddingBottom: "30px",
                 }}
               >
                 {TODOS[name]?.map((data, index) => (

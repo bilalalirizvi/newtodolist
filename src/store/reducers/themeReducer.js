@@ -1,4 +1,4 @@
-import { Color, light, dark } from "../../constants/theme";
+import { light, dark } from "../../constants/theme";
 import { SWITCH_THEME } from "../actions/theme";
 
 const initialState = {

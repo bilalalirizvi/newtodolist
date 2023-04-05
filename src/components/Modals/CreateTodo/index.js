@@ -13,7 +13,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "900px",
+  width: { xs: "95%", sm: "700px", md: "900px" },
   bgcolor: "background.paper",
   boxShadow: 24,
   border: "1px solid #fff",
@@ -35,7 +35,7 @@ const CreateTodo = (props) => {
           <SideBar />
           <Box
             className="modalContent"
-            sx={{ backgroundColor: COLORS.background }}
+            sx={{ backgroundColor: COLORS.background, width: "100%" }}
           >
             <Header handleClose={handleClose} />
             {MODAL.activeForm === "todo" && <Todo />}

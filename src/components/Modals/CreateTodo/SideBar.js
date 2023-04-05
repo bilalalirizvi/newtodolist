@@ -15,7 +15,10 @@ const SideBar = () => {
   };
 
   return (
-    <Box className="modalSideBar">
+    <Box
+      className="modalSideBar"
+      sx={{ width: { xs: "auto", sm: "230px", md: "230px" } }}
+    >
       <Box className="modalLogo">
         <img
           src={logo}

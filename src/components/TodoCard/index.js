@@ -17,6 +17,7 @@ import {
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // Third
 import { useSelector, useDispatch } from "react-redux";
@@ -42,19 +43,15 @@ import {
 const TodoCard = ({ data, projectShow = false }) => {
   const { title, date, isCompleted, type, priority, docId } = data;
 
+  const [expandMenu, setExpandMenu] = useState(false);
+  console.log("expandMenu:", expandMenu);
+
   const dispatch = useDispatch();
 
   // Theme Colors
   const COLORS = useSelector((state) => state.Theme.theme);
 
-  // Menu
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  // Menu
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const open = Boolean(anchorEl);
-  const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
-  const handleMenuClose = () => setAnchorEl(null);
 
   // Priority
   const handlePriorityOpen = () =>
@@ -108,31 +105,23 @@ const TodoCard = ({ data, projectShow = false }) => {
     return obj[key];
   };
 
-  return (
-    <Box
-      component={"div"}
-      className="cardBox"
-      sx={{
-        backgroundColor: COLORS.white,
-        borderLeftColor: getColor(priority),
-      }}
-    >
-      <Checkbox
-        {...label}
-        checked={isCompleted}
-        color="success"
-        onChange={hanldeIsCompleted}
-      />
-      <Typography
-        sx={{
-          flex: 1,
-          fontSize: "15px",
-          textDecoration: isCompleted && "line-through",
-        }}
+  // Component
+  const AllMenu = () => {
+    // Menu
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    // Menu
+    const open = Boolean(anchorEl);
+    const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
+    const handleMenuClose = () => setAnchorEl(null);
+
+    return (
+      <Stack
+        flexDirection={"row"}
+        justifyContent={"flex-end"}
+        alignItems="center"
+        sx={{ gap: "10px" }}
       >
-        {title}
-      </Typography>
-      <Stack flexDirection={"row"} alignItems="center" sx={{ gap: "10px" }}>
         {projectShow && (
           <Typography sx={{ fontSize: "11px" }}>{letterCase(type)}</Typography>
         )}
@@ -206,6 +195,58 @@ const TodoCard = ({ data, projectShow = false }) => {
           </Menu>
         </Box>
       </Stack>
+    );
+  };
+
+  return (
+    <Box>
+      <Box
+        component={"div"}
+        className="cardBox"
+        sx={{
+          backgroundColor: COLORS.white,
+          borderLeftColor: getColor(priority),
+        }}
+      >
+        <Checkbox
+          {...label}
+          checked={isCompleted}
+          color="success"
+          onChange={hanldeIsCompleted}
+        />
+        <Typography
+          sx={{
+            flex: 1,
+            fontSize: "15px",
+            textDecoration: isCompleted && "line-through",
+          }}
+        >
+          {title}
+        </Typography>
+        <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+          <AllMenu />
+        </Box>
+        <Stack>
+          <ExpandMoreIcon
+            sx={{
+              cursor: "pointer",
+              display: { xs: "block", sm: "none", color: COLORS.black },
+            }}
+            onClick={() => setExpandMenu(!expandMenu)}
+          />
+        </Stack>
+      </Box>
+      {expandMenu && (
+        <Stack
+          className="hiddenMenu"
+          sx={{
+            backgroundColor: COLORS.white,
+            borderColor: getColor(priority),
+          }}
+        >
+          <AllMenu />
+        </Stack>
+      )}
     </Box>
   );
 };

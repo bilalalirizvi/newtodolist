@@ -77,7 +77,7 @@ const Project = () => {
 
   const DeleteProject = () => {
     return (
-      <Stack mt={5} spacing={0}>
+      <Stack mt={5} pb={3} spacing={0}>
         <Typography sx={{ fontWeight: "bold" }}>
           Delete this Project!
         </Typography>

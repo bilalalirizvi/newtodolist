@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { MyButton } from "../../../components";
 import swal from "sweetalert";
@@ -59,11 +59,31 @@ const ProfilePicture = () => {
           sx={{ width: "80px", height: "80px", color: "black" }}
         />
         <Stack>
-          <Typography mb={1} sx={{ fontWeight: 500, fontSize: "14px" }}>
+          <Typography
+            mb={1}
+            sx={{ fontWeight: 500, fontSize: "14px", display: "flex" }}
+          >
             Profile Picture &nbsp;
-            <span style={{ fontWeight: 400, fontSize: "13px" }}>
+            <Box
+              component="span"
+              sx={{
+                fontWeight: 400,
+                fontSize: "13px",
+                display: { xs: "none", sm: "flex", md: "flex" },
+              }}
+            >
               (.jpg, .jpeg, .png)
-            </span>
+            </Box>
+          </Typography>
+          <Typography
+            mb={2}
+            sx={{
+              fontWeight: 400,
+              fontSize: "13px",
+              display: { xs: "block", sm: "none", md: "none" },
+            }}
+          >
+            (.jpg, .jpeg, .png)
           </Typography>
           <Stack direction="row" alignItems="center">
             <Button

@@ -14,7 +14,7 @@
 }
 
 .modalSideBar {
-  width: 230px;
+  /* width: 230px; */
   border-right: 1px solid rgb(223, 223, 223);
   background-color: black;
 }

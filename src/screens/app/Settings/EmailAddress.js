@@ -45,7 +45,7 @@ const EmailAddress = () => {
         <TextField
           fullWidth
           sx={{
-            width: "400px",
+            width: { xs: "100%", sm: "400px", md: "400px" },
             "& > *": {
               height: "40px",
             },
