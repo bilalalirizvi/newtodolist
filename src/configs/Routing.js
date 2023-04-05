@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { auth, db, storage } from "./firebase";
+import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   Home,
@@ -83,31 +82,11 @@ const router = createBrowserRouter([
 const Routing = () => {
   const dispatch = useDispatch();
 
-  const isPhoto = async (user) => {
-    let response = "";
-    try {
-      // Get Image from store
-      const pathReference = ref(storage, `images/${user.uid}`);
-      const url = await getDownloadURL(pathReference);
-      response = url;
-    } catch ({ message }) {
-      if (message.includes("does not exist")) response = "";
-    }
-    return response;
-  };
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         (async () => {
           try {
-            // Get Image from store
-            // const pathReference = ref(storage, `images/${user.uid}`);
-            // const url = await getDownloadURL(pathReference);
-
-            const url = await isPhoto(user);
-            console.log("url:", url);
-
             // Get user for firstore
             const q = query(
               collection(db, "users"),
@@ -119,7 +98,6 @@ const Routing = () => {
               _user = {
                 ...doc.data(),
                 docId: doc.id,
-                photoUrl: url,
               };
             });
             localStorage.setItem("userId", _user.uid);
@@ -128,8 +106,7 @@ const Routing = () => {
             localStorage.setItem("email", _user.email);
             dispatch(currentUserSuccess(_user));
           } catch ({ message }) {
-            if (message.includes("does not exist"))
-              console.error("Image does not exist");
+            console.error(message);
           }
         })();
       } else {

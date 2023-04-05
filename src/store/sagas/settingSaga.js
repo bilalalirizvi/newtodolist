@@ -20,13 +20,15 @@ import {
 import { info } from "../../constants/others";
 
 export function* updatePictureSaga(action) {
-  const { userId } = info();
+  const { userId, docId } = info();
   const { file } = action.payload;
   try {
     const pictureRref = ref(storage, `images/${userId}`);
     yield call(uploadBytes, pictureRref, file);
     const pathReference = ref(storage, `images/${userId}`);
     const url = yield call(getDownloadURL, pathReference);
+    const reference = doc(db, "users", docId);
+    yield call(updateDoc, reference, { photoUrl: url });
     yield put({
       type: UPDATE_PICTURE_URL_REDUX,
       payload: url,

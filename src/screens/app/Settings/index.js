@@ -63,6 +63,7 @@ const Settings = () => {
         display: "flex",
         height: "87%",
         // flex: 1,
+        boxShadow: "0px 0px 3px rgba(0,0,0,0.1)",
       }}
     >
       <Tabs
