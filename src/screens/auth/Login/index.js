@@ -4,7 +4,12 @@ import logo from "../../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Label, Progress, TextFieldError } from "../../../components";
+import {
+  Label,
+  PasswordTextField,
+  Progress,
+  TextFieldError,
+} from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../store/actions/auth";
 
@@ -64,16 +69,26 @@ const Login = () => {
         </Stack>
         <Stack>
           <Label text={"Password"} />
-          <TextField
-            fullWidth
+          <PasswordTextField
             sx={styles.focus}
-            size="small"
-            name="password"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={!!(errors.password && touched.password && errors.password)}
+            errors={errors.password}
+            touched={touched.password}
           />
+          {/* <Stack>
+            <TextField
+              fullWidth
+              sx={styles.focus}
+              size="small"
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={!!(errors.password && touched.password && errors.password)}
+            />
+          </Stack> */}
           <TextFieldError errors={errors.password} touched={touched.password} />
         </Stack>
         <Stack justifyContent={"space-between"} direction="row">

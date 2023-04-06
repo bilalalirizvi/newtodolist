@@ -4,7 +4,12 @@ import logo from "../../../assets/images/logo.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Label, Progress, TextFieldError } from "../../../components";
+import {
+  Label,
+  PasswordTextField,
+  Progress,
+  TextFieldError,
+} from "../../../components";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../../store/actions/auth";
 
@@ -20,9 +25,10 @@ const Signup = () => {
     password: Yup.string()
       .min(8, "Password must be atleast 8 characters")
       .required("Required"),
-    confirmPassword: Yup.string()
-      .min(8, "Password must be atleast 8 characters")
-      .required("Required"),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Passwords must match"
+    ),
   });
 
   const {
@@ -92,35 +98,26 @@ const Signup = () => {
         </Stack>
         <Stack>
           <Label text={"Password"} />
-          <TextField
-            fullWidth
+          <PasswordTextField
             sx={styles.focus}
-            size="small"
-            name="password"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={!!(errors.password && touched.password && errors.password)}
+            errors={errors.password}
+            touched={touched.password}
           />
           <TextFieldError errors={errors.password} touched={touched.password} />
         </Stack>
         <Stack>
           <Label text={"Confrim Password"} />
-          <TextField
-            fullWidth
+          <PasswordTextField
             sx={styles.focus}
-            size="small"
-            name="confirmPassword"
             value={values.confirmPassword}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={
-              !!(
-                errors.confirmPassword &&
-                touched.confirmPassword &&
-                errors.confirmPassword
-              )
-            }
+            errors={errors.confirmPassword}
+            touched={touched.confirmPassword}
+            name="confirmPassword"
           />
           <TextFieldError
             errors={errors.confirmPassword}

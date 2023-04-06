@@ -10,6 +10,7 @@ import ProjectCard from "./ProjectCard";
 import Empty from "./Empty";
 import MyButton from "./MyButton";
 import TextFieldLabel from "./TextFieldLabel";
+import PasswordTextField from "./PasswordTextField";
 
 export {
   MainTodo,
@@ -24,4 +25,5 @@ export {
   Empty,
   MyButton,
   TextFieldLabel,
+  PasswordTextField,
 };
