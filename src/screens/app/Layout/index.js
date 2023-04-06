@@ -194,7 +194,14 @@ function Layout(props) {
         />
       </Box>
       <Box sx={{ padding: "15px" }}>
-        <Button variant="contained" className="addBtn" onClick={handleOpen}>
+        <Button
+          variant="contained"
+          className="addBtn"
+          onClick={() => {
+            handleOpen();
+            handleDrawerToggle();
+          }}
+        >
           <AddIcon sx={{ fontSize: "22px" }} /> &nbsp; Add
         </Button>
       </Box>
@@ -205,7 +212,7 @@ function Layout(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box sx={{ display: "flex", height: "100vh", position: "relative" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -336,6 +343,17 @@ function Layout(props) {
         <Outlet />
       </Box>
       <CreateTodo handleClose={handleClose} />
+      <Box
+        onClick={handleOpen}
+        component={"button"}
+        className="addTodo"
+        sx={{
+          backgroundColor: COLORS.primary,
+          display: { xs: "flex", sm: "none" },
+        }}
+      >
+        <AddIcon sx={{ fontSize: "22px", color: COLORS.white }} />
+      </Box>
     </Box>
   );
 }
