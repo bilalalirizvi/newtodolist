@@ -102,7 +102,10 @@ const Todo = () => {
           onBlur={handleBlur}
           error={!!(errors.type && touched.type && errors.type)}
         >
-          <MenuItem value={"general"}>General</MenuItem>
+          {PROJECT?.projects?.length === 0 && (
+            <ListSubheader>No Projects</ListSubheader>
+          )}
+          {/* <MenuItem value={"general"}>General</MenuItem> */}
           {PROJECT?.projects?.length > 0 && (
             <ListSubheader>Projects</ListSubheader>
           )}

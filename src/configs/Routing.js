@@ -114,7 +114,7 @@ const Routing = () => {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [onAuthStateChanged]);
 
   return <RouterProvider router={router} />;
 };

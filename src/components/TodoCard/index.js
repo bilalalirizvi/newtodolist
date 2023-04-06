@@ -44,7 +44,6 @@ const TodoCard = ({ data, projectShow = false }) => {
   const { title, date, isCompleted, type, priority, docId } = data;
 
   const [expandMenu, setExpandMenu] = useState(false);
-  console.log("expandMenu:", expandMenu);
 
   const dispatch = useDispatch();
 

@@ -264,7 +264,7 @@ function Layout(props) {
               <Avatar
                 src={AUTH?.user?.photoUrl}
                 alt={AUTH?.user?.displayName}
-                sx={{ color: "black" }}
+                sx={{ color: "black", border: `2px solid ${COLORS.primary}` }}
               />
               <Stack>
                 <Typography
