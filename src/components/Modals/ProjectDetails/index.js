@@ -30,12 +30,12 @@ const ProjectDetails = () => {
             onClick={handleDetailsClose}
           />
         </Box>
-        <Stack style={styles.body}>
+        <Stack sx={styles.body}>
           <Stack>
             <Typography style={styles.textHeading}>Created By:</Typography>
             <Typography style={styles.textHeading}>Details:</Typography>
           </Stack>
-          <Stack>
+          <Stack sx={{ flex: 1 }}>
             <Typography>
               {moment(createdBy).format("DD-MM-YYYY | hh:mm A")}
             </Typography>
@@ -55,7 +55,7 @@ const styles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "600px",
+    width: { xs: "95%", sm: "600px" },
     bgcolor: "background.paper",
     boxShadow: 24,
     border: "1px solid #fff",
