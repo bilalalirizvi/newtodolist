@@ -104,7 +104,7 @@ export default Note;
 const styles = {
   box: {
     width: "100%",
-    height: "calc(100% - 65px)",
+    height: { xs: "66vh", sm: "calc(100% - 65px)" },
     padding: "20px",
     display: "flex",
     flexDirection: "column",

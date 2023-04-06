@@ -7,17 +7,7 @@ import Header from "./Header";
 import Todo from "./Todo";
 import Projects from "./Projects";
 import Note from "./Note";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "95%", sm: "700px", md: "900px" },
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  border: "1px solid #fff",
-};
+import BottomNavigation from "./BottomNavigation";
 
 const CreateTodo = (props) => {
   const { handleClose } = props;
@@ -30,8 +20,8 @@ const CreateTodo = (props) => {
       onClose={handleClose}
       sx={{ background: "rgba(0,0,0,0.6)" }}
     >
-      <Box sx={style}>
-        <Box className="modalBody">
+      <Box sx={styles.container}>
+        <Box className="modalBody" sx={styles.body}>
           <SideBar />
           <Box
             className="modalContent"
@@ -42,6 +32,7 @@ const CreateTodo = (props) => {
             {MODAL.activeForm === "project" && <Projects />}
             {MODAL.activeForm === "note" && <Note />}
           </Box>
+          <BottomNavigation />
         </Box>
       </Box>
     </Modal>
@@ -49,3 +40,20 @@ const CreateTodo = (props) => {
 };
 
 export default CreateTodo;
+
+const styles = {
+  container: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: { xs: "95%", sm: "700px", md: "900px" },
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    border: "1px solid #fff",
+  },
+  body: {
+    display: { xs: "flex" },
+    flexDirection: { xs: "column", sm: "row" },
+  },
+};
