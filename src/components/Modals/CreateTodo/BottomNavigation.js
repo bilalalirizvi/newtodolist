@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   BottomNavigation as Navigation,
@@ -16,7 +16,25 @@ import { activeForm } from "../../../store/actions/modal";
 const BottomNavigation = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const MODAL = useSelector((state) => state.Modal);
+  const { isEditTodo } = useSelector((state) => state.Todo);
+  const { isEditProject } = useSelector((state) => state.Project);
+  const { isEditNote } = useSelector((state) => state.Note);
+
+  const init = ["todo", "project", "note"];
+  const [editMode, setEditMode] = useState(init);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isEditTodo) {
+      setEditMode(["todo"]);
+    } else if (isEditProject) {
+      setEditMode(["project"]);
+    } else if (isEditNote) {
+      setEditMode(["note"]);
+    } else setEditMode(init);
+    return () => setEditMode(init);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEditTodo, isEditProject, isEditNote]);
 
   const active = (key) => {
     switch (key) {
@@ -60,23 +78,29 @@ const BottomNavigation = () => {
             },
         }}
       >
-        <BottomNavigationAction
-          label="Todo"
-          icon={<SignalCellularAltIcon />}
-          sx={{
-            color: COLORS.white,
-          }}
-        />
-        <BottomNavigationAction
-          label="Project"
-          icon={<AccountTreeIcon />}
-          sx={{ color: COLORS.white }}
-        />
-        <BottomNavigationAction
-          label="Note"
-          icon={<NotesIcon />}
-          sx={{ color: COLORS.white }}
-        />
+        {editMode.includes("todo") && (
+          <BottomNavigationAction
+            label="Todo"
+            icon={<SignalCellularAltIcon />}
+            sx={{
+              color: COLORS.white,
+            }}
+          />
+        )}
+        {editMode.includes("project") && (
+          <BottomNavigationAction
+            label="Project"
+            icon={<AccountTreeIcon />}
+            sx={{ color: COLORS.white }}
+          />
+        )}
+        {editMode.includes("note") && (
+          <BottomNavigationAction
+            label="Note"
+            icon={<NotesIcon />}
+            sx={{ color: COLORS.white }}
+          />
+        )}
       </Navigation>
     </Box>
   );
