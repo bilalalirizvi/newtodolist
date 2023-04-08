@@ -6,13 +6,14 @@ import {
   TextFieldSearch,
   TodoCard,
 } from "../../components";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { DetailsModal, PriorityStatus } from "../../components/Modals";
 import { getTodos } from "../../store/actions/todo";
 import { getNote } from "../../store/actions/note";
 import { activeForm, todoModalOpen } from "../../store/actions/modal";
 import { useSearch } from "../../hooks";
+import NotFoundItem from "../../constants/NotFouncItem";
 
 const MainTodo = ({ name, projectShow }) => {
   const TODOS = useSelector((state) => state.Todo);
@@ -106,9 +107,19 @@ const MainTodo = ({ name, projectShow }) => {
                     length={filteredTodo().length}
                   />
                 </Box>
-                {filteredTodo()?.map((data, index) => (
-                  <TodoCard key={index} data={data} projectShow={projectShow} />
-                ))}
+                {filteredTodo().length === 0 ? (
+                  <NotFoundItem />
+                ) : (
+                  <>
+                    {filteredTodo()?.map((data, index) => (
+                      <TodoCard
+                        key={index}
+                        data={data}
+                        projectShow={projectShow}
+                      />
+                    ))}
+                  </>
+                )}
               </Box>
             </>
           )}

@@ -19,6 +19,7 @@ import {
 } from "../../../store/actions/project";
 import { activeForm, todoModalOpen } from "../../../store/actions/modal";
 import { useSearch } from "../../../hooks";
+import NotFoundItem from "../../../constants/NotFouncItem";
 
 const Project = () => {
   const { title, projectId } = useParams();
@@ -163,7 +164,7 @@ const Project = () => {
               length={filteredTodo().length}
             />
           </Box>
-          {filtered.length === 0 ? (
+          {TODOS?.todos?.length === 0 ? (
             <Empty
               title={"Todo"}
               description={"Create a new Todo."}
@@ -185,9 +186,15 @@ const Project = () => {
                   overflowY: "auto",
                 }}
               >
-                {filteredTodo()?.map((data, index) => (
-                  <TodoCard key={index} data={data} projectShow={false} />
-                ))}
+                {filteredTodo()?.length === 0 ? (
+                  <NotFoundItem />
+                ) : (
+                  <>
+                    {filteredTodo()?.map((data, index) => (
+                      <TodoCard key={index} data={data} projectShow={false} />
+                    ))}
+                  </>
+                )}
               </Box>
               <DeleteProject />
             </>
