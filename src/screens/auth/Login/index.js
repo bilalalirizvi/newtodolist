@@ -10,14 +10,17 @@ import {
   Progress,
   TextFieldError,
 } from "../../../components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../store/actions/auth";
+import { useEffect } from "react";
 
 const Login = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const AUTH = useSelector((state) => state.Auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { state } = useLocation();
+
   const schema = Yup.object().shape({
     email: Yup.string().email().required("Required"),
     password: Yup.string()
@@ -25,17 +28,30 @@ const Login = () => {
       .required("Required"),
   });
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validationSchema: schema,
-      onSubmit: (values) => {
-        dispatch(loginUser({ ...values, navigate }));
-      },
-    });
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      dispatch(loginUser({ ...values, navigate }));
+    },
+  });
+
+  useEffect(() => {
+    if (state?.email) setFieldValue("email", state?.email);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box className="authContainer">
       <img src={logo} alt="Logo" width={200} />

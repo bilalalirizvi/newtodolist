@@ -2,6 +2,7 @@ import { put, call } from "redux-saga/effects";
 import swal from "sweetalert";
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -11,6 +12,8 @@ import { auth, db } from "../../configs/firebase";
 import {
   CREATE_USER_FAILED,
   CREATE_USER_SUCCESS,
+  PASSWORD_RESET_FAILED,
+  PASSWORD_RESET_SUCCESS,
   USER_LOGIN_FAILED,
   USER_LOGIN_SUCCESS,
 } from "../actions/auth";
@@ -73,5 +76,22 @@ export function* logoutSaga(action) {
     navigate("/login");
   } catch ({ code, message }) {
     swal("", `${message}`, "error");
+  }
+}
+
+export function* passwordResetSaga(action) {
+  const { navigate, email } = action.payload;
+  try {
+    yield call(sendPasswordResetEmail, auth, email);
+    swal("", "Password reset email sent!!", "success");
+    yield put({
+      type: PASSWORD_RESET_SUCCESS,
+    });
+    navigate("/login", { state: { email } });
+  } catch ({ code, message }) {
+    swal("", `${message}`, "error");
+    yield put({
+      type: PASSWORD_RESET_FAILED,
+    });
   }
 }

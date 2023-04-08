@@ -1,36 +1,37 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import "../styles.css";
 import logo from "../../../assets/images/logo.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Label, Progress, TextFieldError } from "../../../components";
+import { useNavigate } from "react-router-dom";
+import { passwordReset } from "../../../store/actions/auth";
 
 const ForgotPassword = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
+  const AUTH = useSelector((state) => state.Auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const schema = Yup.object().shape({
     email: Yup.string().email().required("Required"),
-    password: Yup.string()
-      .min(8, "Password must be atleast 8 characters")
-      .required("Required"),
   });
 
-  const {
-    values,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    errors,
-    touched,
-    // resetForm,
-  } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: schema,
-    onSubmit: (values) => {},
-  });
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: {
+        email: "",
+      },
+      validationSchema: schema,
+      onSubmit: (values) => {
+        dispatch(
+          passwordReset({
+            email: values.email,
+            navigate: navigate,
+          })
+        );
+      },
+    });
   return (
     <Box className="authContainer">
       <img src={logo} alt="Logo" width={200} />
@@ -75,7 +76,7 @@ const ForgotPassword = () => {
             },
           }}
         >
-          {false ? <Progress /> : "Forgot Password"}
+          {AUTH?.loading ? <Progress /> : "Forgot Password"}
         </Button>
       </Box>
     </Box>

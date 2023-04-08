@@ -2,6 +2,7 @@ import { all, takeEvery } from "redux-saga/effects";
 import {
   CREATE_USER_REQUEST,
   LOGOUT_REQUEST,
+  PASSWORD_RESET_REQUEST,
   USER_LOGIN_REQUEST,
 } from "../actions/auth";
 import {
@@ -25,7 +26,12 @@ import {
   GET_PROJECT_REQUEST,
   UPDATE_PROJECT_REQUEST,
 } from "../actions/project";
-import { createNewUserSaga, logoutSaga, userLoginSaga } from "./authSaga";
+import {
+  createNewUserSaga,
+  logoutSaga,
+  passwordResetSaga,
+  userLoginSaga,
+} from "./authSaga";
 import {
   createNoteSaga,
   deleteNoteSaga,
@@ -65,6 +71,7 @@ export default function* rootSagas() {
   yield all([takeEvery(CREATE_USER_REQUEST, createNewUserSaga)]);
   yield all([takeEvery(USER_LOGIN_REQUEST, userLoginSaga)]);
   yield all([takeEvery(LOGOUT_REQUEST, logoutSaga)]);
+  yield all([takeEvery(PASSWORD_RESET_REQUEST, passwordResetSaga)]);
 
   // Is completed
   yield all([takeEvery(IS_COMPLETED_REQUEST, updateIsCompletedSaga)]);

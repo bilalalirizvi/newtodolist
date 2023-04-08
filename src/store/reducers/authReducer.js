@@ -4,6 +4,9 @@ import {
   CREATE_USER_SUCCESS,
   GET_CURRENT_USER_FAILED,
   GET_CURRENT_USER_SUCCESS,
+  PASSWORD_RESET_FAILED,
+  PASSWORD_RESET_REQUEST,
+  PASSWORD_RESET_SUCCESS,
   USER_LOGIN_FAILED,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -86,6 +89,24 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: { ...state.user, email: payload },
+      };
+    }
+    case PASSWORD_RESET_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case PASSWORD_RESET_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case PASSWORD_RESET_FAILED: {
+      return {
+        ...state,
+        loading: false,
       };
     }
     default:

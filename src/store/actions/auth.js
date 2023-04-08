@@ -11,6 +11,10 @@ export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 export const GET_CURRENT_USER_SUCCESS = "GET_CURRENT_USER_SUCCESS";
 export const GET_CURRENT_USER_FAILED = "GET_CURRENT_USER_FAILED";
 
+export const PASSWORD_RESET_REQUEST = "PASSWORD_RESET_REQUEST";
+export const PASSWORD_RESET_SUCCESS = "PASSWORD_RESET_SUCCESS";
+export const PASSWORD_RESET_FAILED = "PASSWORD_RESET_FAILED";
+
 export const createUser = (payload) => {
   return {
     type: CREATE_USER_REQUEST,
@@ -42,5 +46,12 @@ export const currentUserSuccess = (payload) => {
 export const currentUserFailed = () => {
   return {
     type: GET_CURRENT_USER_FAILED,
+  };
+};
+
+export const passwordReset = (payload) => {
+  return {
+    type: PASSWORD_RESET_REQUEST,
+    payload: payload,
   };
 };
