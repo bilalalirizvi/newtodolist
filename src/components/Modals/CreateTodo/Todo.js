@@ -22,12 +22,21 @@ import dayjs from "dayjs";
 import { createTodo, updateTodo } from "../../../store/actions/todo";
 import { getProjects } from "../../../store/actions/project";
 import { Progress } from "../../../components";
+import { useParams } from "react-router-dom";
 
 const Todo = () => {
   const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
   const PROJECT = useSelector((state) => state.Project);
   const dispatch = useDispatch();
+
+  const { projectId } = useParams();
+  let currentProject;
+  if (projectId) {
+    currentProject = PROJECT?.projects?.find((v) => v.docId === projectId);
+  } else {
+    currentProject = "";
+  }
 
   useEffect(() => {
     if (PROJECT.projects.length === 0) dispatch(getProjects());
@@ -52,7 +61,7 @@ const Todo = () => {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      type: TODOS.editTodo.type || "",
+      type: TODOS.editTodo.type || currentProject.title || "",
       title: TODOS.editTodo.title || "",
       details: TODOS.editTodo.details || "",
       date: dayjs(TODOS.editTodo.date) || dayjs(),
