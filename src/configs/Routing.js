@@ -17,7 +17,7 @@ import { Login, Signup, ForgotPassword } from "../screens/auth";
 import { AppRoutes, AuthRoutes } from "./ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUserFailed, currentUserSuccess } from "../store/actions/auth";
-import { switchTheme } from "../store/actions/theme";
+// import { switchTheme } from "../store/actions/theme";
 
 const router = createBrowserRouter([
   {
