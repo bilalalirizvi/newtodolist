@@ -6,6 +6,7 @@ import { updateEmail } from "../../../store/actions/setting";
 import { validateEmail } from "../../../constants/others";
 
 const EmailAddress = () => {
+  const COLORS = useSelector((state) => state.Theme.theme);
   const AUTH = useSelector((state) => state.Auth);
   const SETTING = useSelector((state) => state.Setting);
   const [email, setEmail] = useState(AUTH?.user?.email);
@@ -37,7 +38,7 @@ const EmailAddress = () => {
 
   return (
     <>
-      <Typography mb={5} variant="h5">
+      <Typography mb={5} variant="h5" sx={{ color: COLORS.text }}>
         Edit Email Address
       </Typography>
       <Stack direction="column">
@@ -48,6 +49,21 @@ const EmailAddress = () => {
             width: { xs: "100%", sm: "400px", md: "400px" },
             "& > *": {
               height: "40px",
+            },
+          }}
+          InputProps={{
+            sx: {
+              padding: "0px !important",
+              color: COLORS.text,
+              fontSize: "13px",
+              ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                border: `1px solid ${COLORS.text}`,
+              },
+              "&:hover": {
+                ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                  border: `1px solid ${COLORS.text}`,
+                },
+              },
             },
           }}
           type="email"

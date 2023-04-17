@@ -49,7 +49,7 @@ const NoteCard = ({ data }) => {
   };
 
   return (
-    <Box sx={{ ...styles.cardBox, backgroundColor: COLORS.white }}>
+    <Box sx={{ ...styles.cardBox, backgroundColor: COLORS.todoCard }}>
       <Stack justifyContent={"space-between"} direction="row">
         <Typography sx={{ fontSize: "10px", color: COLORS.primary }}>
           {moment(createdBy).format("DD-MM-YYYY | hh:mm A")}

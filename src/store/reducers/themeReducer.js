@@ -1,17 +1,26 @@
 import { light, dark } from "../../constants/theme";
-import { SWITCH_THEME } from "../actions/theme";
+import { THEME_LIGHT, THEME_DARK } from "../actions/theme";
 
 const initialState = {
+  mode: "light",
   theme: { ...light },
 };
 
 const themeReducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type } = action;
   switch (type) {
-    case SWITCH_THEME: {
+    case THEME_LIGHT: {
       return {
         ...state,
-        theme: payload ? dark : light,
+        mode: "light",
+        theme: light,
+      };
+    }
+    case THEME_DARK: {
+      return {
+        ...state,
+        mode: "dark",
+        theme: dark,
       };
     }
     default:

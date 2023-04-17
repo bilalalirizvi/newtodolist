@@ -38,7 +38,7 @@ const ProjectCard = ({ data }) => {
       component={"div"}
       className="cardBox"
       sx={{
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.todoCard,
         borderLeftColor: COLORS.black,
       }}
     >
@@ -47,6 +47,7 @@ const ProjectCard = ({ data }) => {
           flex: 1,
           fontSize: "15px",
           cursor: "pointer",
+          color: COLORS.text,
         }}
         onClick={() => navigate(`/projects/${title}/${docId}`)}
       >
@@ -70,10 +71,10 @@ const ProjectCard = ({ data }) => {
           </Typography>
         </Box>
         <Stack alignItems={"center"}>
-          <Typography sx={{ fontSize: "10px" }}>
+          <Typography sx={{ fontSize: "10px", color: COLORS.text }}>
             {moment(date).format("DD-MM-YYYY")}
           </Typography>
-          <Typography sx={{ fontSize: "10px" }}>
+          <Typography sx={{ fontSize: "10px", color: COLORS.text }}>
             {moment(date).format("hh:mm A")}
           </Typography>
         </Stack>

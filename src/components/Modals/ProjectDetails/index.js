@@ -20,22 +20,26 @@ const ProjectDetails = () => {
       onClose={handleDetailsClose}
       sx={{ background: "rgba(0,0,0,0.6)" }}
     >
-      <Box sx={styles.modal}>
+      <Box sx={{ ...styles.modal, backgroundColor: COLORS.background }}>
         <Box style={{ ...styles.header, backgroundColor: COLORS.primary }}>
-          <Typography sx={{ color: COLORS.white, fontWeight: "bold" }}>
+          <Typography sx={{ color: COLORS.constantWhite, fontWeight: "bold" }}>
             {title}
           </Typography>
           <CloseIcon
-            sx={{ color: COLORS.white, cursor: "pointer", fontSize: "18px" }}
+            sx={{
+              color: COLORS.constantWhite,
+              cursor: "pointer",
+              fontSize: "18px",
+            }}
             onClick={handleDetailsClose}
           />
         </Box>
         <Stack sx={styles.body}>
-          <Stack>
+          <Stack sx={{ color: COLORS.text }}>
             <Typography style={styles.textHeading}>Created By:</Typography>
             <Typography style={styles.textHeading}>Details:</Typography>
           </Stack>
-          <Stack sx={{ flex: 1 }}>
+          <Stack sx={{ flex: 1, color: COLORS.text }}>
             <Typography>
               {moment(createdBy).format("DD-MM-YYYY | hh:mm A")}
             </Typography>

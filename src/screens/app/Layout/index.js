@@ -31,6 +31,8 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NotesIcon from "@mui/icons-material/Notes";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
+// import DarkModeIcon from "@mui/icons-material/DarkMode";
+// import LightModeIcon from "@mui/icons-material/LightMode";
 
 import {
   activeForm,
@@ -42,6 +44,7 @@ import { cancelEditNote } from "../../../store/actions/note";
 import { cancelEditProject } from "../../../store/actions/project";
 import moment from "moment";
 import { letterCase } from "../../../utils";
+// import { themeDark, themeLight } from "../../../store/actions/theme";
 
 const drawerWidth = 300;
 
@@ -51,6 +54,7 @@ function Layout(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const AUTH = useSelector((state) => state.Auth);
   const COLORS = useSelector((state) => state.Theme.theme);
+  // const THEME = useSelector((state) => state.Theme);
   const TODOS = useSelector((state) => state.Todo);
   const NOTES = useSelector((state) => state.Note);
   const PROJECTS = useSelector((state) => state.Project);
@@ -141,7 +145,7 @@ function Layout(props) {
     <>
       <Box
         style={{
-          backgroundColor: COLORS.black,
+          backgroundColor: COLORS.sideBar,
           paddingInline: 25,
           paddingBlock: 15,
         }}
@@ -150,7 +154,7 @@ function Layout(props) {
           src={logo}
           alt="Logo"
           width={130}
-          style={{ backgroundColor: COLORS.black }}
+          style={{ backgroundColor: COLORS.sideBar }}
         />
       </Box>
       <Box sx={{ height: "100%" }}>
@@ -211,6 +215,17 @@ function Layout(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  // const themeSwitch = (value) => {
+  //   console.log("value:", value);
+  //   if (value === "dark") {
+  //     localStorage.setItem("theme", "dark");
+  //     dispatch(themeDark());
+  //   } else {
+  //     localStorage.setItem("theme", "light");
+  //     dispatch(themeLight());
+  //   }
+  // };
+
   return (
     <Box sx={{ display: "flex", height: "100vh", position: "relative" }}>
       <CssBaseline />
@@ -253,10 +268,23 @@ function Layout(props) {
             {pathname === "/settings" && "Settings"}
           </Typography>
           <Stack direction="row" alignItems={"center"}>
-            <LogoutIcon
-              sx={{ color: COLORS.gray, cursor: "pointer" }}
-              onClick={() => dispatch(logout({ navigate: navigate }))}
-            />
+            <Stack sx={{ lineHeight: 0 }} direction="row" spacing={1}>
+              {/* {THEME?.mode === "light" ? (
+                <DarkModeIcon
+                  sx={{ color: COLORS.icon, cursor: "pointer" }}
+                  onClick={() => themeSwitch("dark")}
+                />
+              ) : (
+                <LightModeIcon
+                  sx={{ color: COLORS.icon, cursor: "pointer" }}
+                  onClick={() => themeSwitch("light")}
+                />
+              )} */}
+              <LogoutIcon
+                sx={{ color: COLORS.gray, cursor: "pointer" }}
+                onClick={() => dispatch(logout({ navigate: navigate }))}
+              />
+            </Stack>
             <Box
               component={"span"}
               className="verticalLine"
@@ -309,7 +337,7 @@ function Layout(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor: COLORS.black,
+              backgroundColor: COLORS.sideBar,
             },
           }}
         >
@@ -323,7 +351,7 @@ function Layout(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor: COLORS.black,
+              backgroundColor: COLORS.sideBar,
             },
           }}
           open

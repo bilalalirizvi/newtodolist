@@ -64,10 +64,9 @@ const Settings = () => {
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: COLORS.white,
+        bgcolor: COLORS.todoCard,
         display: "flex",
         height: "87%",
-        // flex: 1,
         boxShadow: "0px 0px 3px rgba(0,0,0,0.1)",
       }}
     >
@@ -82,6 +81,7 @@ const Settings = () => {
       >
         <StyledTab
           sx={{
+            color: COLORS.text,
             textTransform: "initial",
             padding: "0px 30px",
           }}
@@ -98,17 +98,17 @@ const Settings = () => {
           {...a11yProps(0)}
         />
         <StyledTab
-          sx={{ textTransform: "initial" }}
+          sx={{ color: COLORS.text, textTransform: "initial" }}
           label={matches ? <BadgeIcon /> : "Display Name"}
           {...a11yProps(1)}
         />
         <StyledTab
-          sx={{ textTransform: "initial" }}
+          sx={{ color: COLORS.text, textTransform: "initial" }}
           label={matches ? <EmailIcon /> : "Email Address"}
           {...a11yProps(2)}
         />
         <StyledTab
-          sx={{ textTransform: "initial" }}
+          sx={{ color: COLORS.text, textTransform: "initial" }}
           label={matches ? <PasswordIcon /> : "Password"}
           {...a11yProps(3)}
         />

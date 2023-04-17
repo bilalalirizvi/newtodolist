@@ -59,14 +59,19 @@ const SelectBox = ({ handleSelect, length }) => {
       <FormControl sx={{ width: { xs: "100%", sm: "300px" } }}>
         <InputLabel id="demo-multiple-chip-label">Filter By</InputLabel>
         <Select
+          label={{ color: "#fff" }}
           sx={{
-            "& .MuiOutlinedInput-root": {
-              "&.Mui-focused fieldset": {
-                border: `1px solid ${COLORS.primary}`,
-              },
-            },
             "& label.Mui-focused": {
-              color: "black",
+              color: COLORS.primary,
+            },
+            ".MuiOutlinedInput-notchedOutline": {
+              borderColor: COLORS.inputBorder,
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              border: `1px solid ${COLORS.primary}`,
+            },
+            "& .MuiSvgIcon-root": {
+              color: COLORS.text,
             },
           }}
           size="small"
@@ -96,7 +101,7 @@ const SelectBox = ({ handleSelect, length }) => {
                     size="small"
                     sx={{
                       backgroundColor: getColor(value),
-                      color: COLORS.white,
+                      color: COLORS.constantWhite,
                       width: "150px",
                     }}
                   />

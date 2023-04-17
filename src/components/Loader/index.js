@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
 import "./style.css";
 
 const Loader = () => {
+  const COLORS = useSelector((state) => state.Theme.theme);
   return (
     <Box className="loaderContainer">
-      <Box className="loader"></Box>
+      <Box className="loader" sx={{ borderColor: COLORS.text }}></Box>
     </Box>
   );
 };

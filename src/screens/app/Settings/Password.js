@@ -5,6 +5,7 @@ import { updatePassword } from "../../../store/actions/setting";
 import { MyButton, TextFieldLabel } from "../../../components";
 
 const Password = () => {
+  const COLORS = useSelector((state) => state.Theme.theme);
   const SETTING = useSelector((state) => state.Setting);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -45,7 +46,7 @@ const Password = () => {
 
   return (
     <>
-      <Typography mb={5} variant="h5">
+      <Typography mb={5} variant="h5" sx={{ color: COLORS.text }}>
         Edit Email Address
       </Typography>
       <Stack direction="column" mb={3}>
@@ -56,6 +57,21 @@ const Password = () => {
             width: { xs: "100%", sm: "400px", md: "400px" },
             "& > *": {
               height: "40px",
+            },
+          }}
+          InputProps={{
+            sx: {
+              padding: "0px !important",
+              color: COLORS.text,
+              fontSize: "13px",
+              ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                border: `1px solid ${COLORS.text}`,
+              },
+              "&:hover": {
+                ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                  border: `1px solid ${COLORS.text}`,
+                },
+              },
             },
           }}
           type="text"
@@ -88,6 +104,21 @@ const Password = () => {
             width: { xs: "100%", sm: "400px", md: "400px" },
             "& > *": {
               height: "40px",
+            },
+          }}
+          InputProps={{
+            sx: {
+              padding: "0px !important",
+              color: COLORS.text,
+              fontSize: "13px",
+              ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                border: `1px solid ${COLORS.text}`,
+              },
+              "&:hover": {
+                ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                  border: `1px solid ${COLORS.text}`,
+                },
+              },
             },
           }}
           type="text"

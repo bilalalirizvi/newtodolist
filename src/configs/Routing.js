@@ -15,8 +15,9 @@ import {
 import Project from "../screens/app/AllProjects/Project";
 import { Login, Signup, ForgotPassword } from "../screens/auth";
 import { AppRoutes, AuthRoutes } from "./ProtectedRoute";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { currentUserFailed, currentUserSuccess } from "../store/actions/auth";
+import { switchTheme } from "../store/actions/theme";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
 ]);
 
 const Routing = () => {
+  const COLORS = useSelector((state) => state.Theme.theme);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -115,6 +117,19 @@ const Routing = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onAuthStateChanged]);
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme") || "light";
+    // background-color: #f4f4f6 !important;
+
+    if (theme === "dark") {
+      document.body.style.backgroundColor = COLORS.background;
+      dispatch({ type: "THEME_DARK" });
+    } else {
+      document.body.style.backgroundColor = COLORS.background;
+      dispatch({ type: "THEME_LIGHT" });
+    }
+  }, [dispatch, COLORS]);
 
   return <RouterProvider router={router} />;
 };

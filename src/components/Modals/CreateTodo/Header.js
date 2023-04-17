@@ -13,13 +13,13 @@ const Header = (props) => {
 
   return (
     <Box className="modalHeader" sx={{ backgroundColor: COLORS.primary }}>
-      <Typography variant="h6" sx={{ color: COLORS.white }}>
+      <Typography variant="h6" sx={{ color: COLORS.constantWhite }}>
         {isEditTodo || isEditProject || isEditNote
           ? `Update ${letterCase(MODAL?.activeForm)}`
           : `Create a new ${letterCase(MODAL?.activeForm)}`}
       </Typography>
       <CloseIcon
-        sx={{ color: COLORS.white, cursor: "pointer" }}
+        sx={{ color: COLORS.constantWhite, cursor: "pointer" }}
         onClick={handleClose}
       />
     </Box>

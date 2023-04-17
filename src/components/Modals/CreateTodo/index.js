@@ -11,7 +11,7 @@ import BottomNavigation from "./BottomNavigation";
 
 const CreateTodo = (props) => {
   const { handleClose } = props;
-  const COLORS = useSelector((state) => state.Theme.theme);
+  // const COLORS = useSelector((state) => state.Theme.theme);
   const MODAL = useSelector((state) => state.Modal);
 
   return (
@@ -25,7 +25,7 @@ const CreateTodo = (props) => {
           <SideBar />
           <Box
             className="modalContent"
-            sx={{ backgroundColor: COLORS.background, width: "100%" }}
+            sx={{ backgroundColor: "rgb(200,200,200)", width: "100%" }}
           >
             <Header handleClose={handleClose} />
             {MODAL.activeForm === "todo" && <Todo />}

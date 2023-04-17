@@ -85,7 +85,7 @@ const Note = () => {
           type="submit"
           variant="contained"
           sx={{
-            color: COLORS.white,
+            color: COLORS.constantWhite,
             backgroundColor: COLORS.primary,
             "&:hover": {
               backgroundColor: COLORS.primary,

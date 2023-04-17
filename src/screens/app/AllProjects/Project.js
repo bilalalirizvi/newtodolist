@@ -23,14 +23,17 @@ import NotFoundItem from "../../../constants/NotFouncItem";
 
 const Project = () => {
   const { title, projectId } = useParams();
+  const COLORS = useSelector((state) => state.Theme.theme);
   const TODOS = useSelector((state) => state.Todo);
   const NOTES = useSelector((state) => state.Note);
 
   const [search, setSearch] = useState("");
 
+  const isTodo = TODOS?.todos?.filter((v) => v?.type === title);
+
   const [filtered] = useSearch({
     value: search,
-    data: TODOS?.todos?.filter((v) => v?.type === title),
+    data: isTodo,
   });
 
   const [filterBy, setFilterBy] = useState("View All");
@@ -89,10 +92,10 @@ const Project = () => {
   const DeleteProject = () => {
     return (
       <Stack mt={5} pb={3} spacing={0}>
-        <Typography sx={{ fontWeight: "bold" }}>
+        <Typography sx={{ fontWeight: "bold", color: COLORS.text }}>
           Delete this Project!
         </Typography>
-        <Typography sx={{ fontSize: "15px" }}>
+        <Typography sx={{ fontSize: "15px", color: COLORS.text }}>
           Once you delete a project, there is no going back. Please be certain.
         </Typography>
         <Box mt={1}>
@@ -143,7 +146,11 @@ const Project = () => {
         <Loader />
       ) : (
         <>
-          <Typography variant="h5" mb={2} sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            mb={2}
+            sx={{ fontWeight: "bold", color: COLORS.text }}
+          >
             {title}
           </Typography>
           <Box
@@ -164,7 +171,7 @@ const Project = () => {
               length={filteredTodo().length}
             />
           </Box>
-          {TODOS?.todos?.length === 0 ? (
+          {isTodo?.length === 0 ? (
             <Empty
               title={"Todo"}
               description={"Create a new Todo."}

@@ -41,17 +41,23 @@ const PriorityStatus = () => {
       onClose={handlePriorityClose}
       sx={{ background: "rgba(0,0,0,0.6)" }}
     >
-      <Box sx={styles.modal}>
+      <Box sx={{ ...styles.modal, backgroundColor: COLORS.background }}>
         <Box style={{ ...styles.header, backgroundColor: COLORS.primary }}>
-          <Typography sx={{ color: COLORS.white, fontWeight: "bold" }}>
+          <Typography sx={{ color: COLORS.constantWhite, fontWeight: "bold" }}>
             Priority
           </Typography>
           <CloseIcon
-            sx={{ color: COLORS.white, cursor: "pointer", fontSize: "18px" }}
+            sx={{
+              color: COLORS.constantWhite,
+              cursor: "pointer",
+              fontSize: "18px",
+            }}
             onClick={handlePriorityClose}
           />
         </Box>
-        <Typography style={styles.text}>Mark as:</Typography>
+        <Typography style={{ ...styles.text, color: COLORS.text }}>
+          Mark as:
+        </Typography>
         <Stack style={styles.buttonBox}>
           {["low", "high", "medium"].map((v, i) => {
             return (
@@ -69,7 +75,7 @@ const PriorityStatus = () => {
                     sx={{
                       fontSize: "12px",
                       fontWeight: "bold",
-                      color: COLORS.white,
+                      color: COLORS.constantWhite,
                     }}
                   >
                     {letterCase(v)}
@@ -81,7 +87,7 @@ const PriorityStatus = () => {
         </Stack>
         {TODOS?.loading && (
           <Stack style={styles.loading}>
-            <Progress color={COLORS.black} />
+            <Progress color={COLORS.text} />
           </Stack>
         )}
       </Box>

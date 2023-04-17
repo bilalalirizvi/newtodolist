@@ -13,8 +13,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f4f4f6 !important;
   font-family: "Poppins", sans-serif;
+  /* background-color: #f4f4f6 !important; */
 }
 
 code {

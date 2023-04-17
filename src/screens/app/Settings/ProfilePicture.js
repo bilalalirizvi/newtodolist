@@ -49,7 +49,7 @@ const ProfilePicture = () => {
 
   return (
     <>
-      <Typography mb={5} variant="h5">
+      <Typography mb={5} variant="h5" sx={{ color: COLORS.text }}>
         Edit Profile Picture
       </Typography>
       <Stack direction="row" alignItems="center" spacing={2}>
@@ -61,7 +61,12 @@ const ProfilePicture = () => {
         <Stack>
           <Typography
             mb={1}
-            sx={{ fontWeight: 500, fontSize: "14px", display: "flex" }}
+            sx={{
+              fontWeight: 500,
+              fontSize: "14px",
+              display: "flex",
+              color: COLORS.text,
+            }}
           >
             Profile Picture &nbsp;
             <Box
@@ -97,6 +102,7 @@ const ProfilePicture = () => {
                 flexShrink: 0,
                 "&:hover": {
                   backgroundColor: "transparent",
+                  border: `1px solid ${COLORS.primary}`,
                 },
               }}
             >
@@ -111,7 +117,11 @@ const ProfilePicture = () => {
           </Stack>
           <Stack>
             {photo?.name.length > 0 && (
-              <Typography mt={1} sx={{ fontSize: "14px" }} title={photo?.name}>
+              <Typography
+                mt={1}
+                sx={{ fontSize: "14px", color: COLORS.text }}
+                title={photo?.name}
+              >
                 {photo?.name}
               </Typography>
             )}

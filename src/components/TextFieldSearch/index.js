@@ -8,14 +8,27 @@ const TextFieldSearch = ({ search, onChange }) => {
     <TextField
       sx={{
         "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: `${COLORS.inputBorder}`,
+          },
           "&.Mui-focused fieldset": {
             border: `1px solid ${COLORS.primary}`,
           },
         },
-        "& label.Mui-focused": {
-          color: "black",
-        },
         width: { xs: "100%", sm: "300px" },
+      }}
+      InputProps={{
+        sx: {
+          color: COLORS.text,
+          ".css-x2l1vy-MuiInputBase-root-MuiOutlinedInput-root": {
+            color: COLORS.text,
+          },
+          "&:hover": {
+            ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+              borderColor: COLORS.text,
+            },
+          },
+        },
       }}
       size="small"
       placeholder="Search by title..."

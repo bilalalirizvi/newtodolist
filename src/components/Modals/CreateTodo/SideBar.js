@@ -47,7 +47,7 @@ const SideBar = () => {
           src={logo}
           alt="Logo"
           width={100}
-          style={{ backgroundColor: COLORS.black }}
+          style={{ backgroundColor: COLORS.sideBar }}
         />
       </Box>
       {editMode.includes("todo") && (

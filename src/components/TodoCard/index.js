@@ -122,7 +122,9 @@ const TodoCard = ({ data, projectShow = false }) => {
         sx={{ gap: "10px" }}
       >
         {projectShow && (
-          <Typography sx={{ fontSize: "11px" }}>{letterCase(type)}</Typography>
+          <Typography sx={{ fontSize: "11px", color: COLORS.text }}>
+            {letterCase(type)}
+          </Typography>
         )}
         <Box
           component="button"
@@ -135,16 +137,20 @@ const TodoCard = ({ data, projectShow = false }) => {
           onClick={handlePriorityOpen}
         >
           <Typography
-            sx={{ fontSize: "12px", fontWeight: "bold", color: COLORS.white }}
+            sx={{
+              fontSize: "12px",
+              fontWeight: "bold",
+              color: COLORS.constantWhite,
+            }}
           >
             {letterCase(priority)}
           </Typography>
         </Box>
         <Stack alignItems={"center"}>
-          <Typography sx={{ fontSize: "10px" }}>
+          <Typography sx={{ fontSize: "10px", color: COLORS.text }}>
             {moment(date).format("DD-MM-YYYY")}
           </Typography>
-          <Typography sx={{ fontSize: "10px" }}>
+          <Typography sx={{ fontSize: "10px", color: COLORS.text }}>
             {moment(date).format("hh:mm A")}
           </Typography>
         </Stack>
@@ -203,7 +209,7 @@ const TodoCard = ({ data, projectShow = false }) => {
         component={"div"}
         className="cardBox"
         sx={{
-          backgroundColor: COLORS.white,
+          backgroundColor: COLORS.todoCard,
           borderLeftColor: getColor(priority),
         }}
       >
@@ -212,12 +218,14 @@ const TodoCard = ({ data, projectShow = false }) => {
           checked={isCompleted}
           color="success"
           onChange={hanldeIsCompleted}
+          sx={{ borderColor: "#fff" }}
         />
         <Typography
           sx={{
             flex: 1,
             fontSize: "15px",
             textDecoration: isCompleted && "line-through",
+            color: COLORS.text,
           }}
         >
           {title}
